@@ -1,0 +1,8 @@
+db스키마추가(유니크처리는 데드락?일단 등록은 해두고)
+pk스트링으로 갭락 막기 (https://velog.io/@mooh2jj/reservation-system-concurrency-control-and-double-booking-how-to-prevent-duplicate-requests)
+db설정추가
+
+타임슬롯과 타임라인추가
+
+
+임시예약추가
