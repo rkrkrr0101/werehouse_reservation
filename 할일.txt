@@ -71,5 +71,29 @@ db설정추가
 start가 작고 && end가 크거나(새로운예약이 기존 예약을 완전히 포함)//사실상겹침
 new.startTime < existing.endTime(새로운 예약 시작시간이 기존예약시간범위안에 있음)
 new.endTime > existing.startTime(새로운 예약 종료시간이 기존예약시간범위안에 있음)
-슬롯쓸거면 둘을 더해서 2이상되는게 나오면 false던져도될듯?
-슬롯도 그냥 시작점과 종료점거만 가져와서 비교?(나머지 0으로채우고)
+
+
+타임슬롯(각 날짜별 예약시간)//한예약은 하나이상의 타임슬롯으로 구성됨
+ReservationSlots(localdatetime2개를 생성자로 받음,해당시간2개를 타임슬롯n개로 쪼개서 가짐)//한예약은 하나의 ReservationSlots으로 구성됨
+    ReservationId(필요한가?양방향이 필요하면 있어야할거같긴하다)
+    startTime
+    endTime
+    함수
+        타임슬롯리스트 생성
+
+
+타임라인(ReservationSlots의 모음)//한 창고의 모든 예약은 하나의 타임라인으로 구성됨(창고id와 ReservationSlots의 스타트엔드를 인덱스로)
+    창고id
+    list<ReservationSlots>//정렬되어있어야함
+        함수
+            ReservationSlots의 오버랩여부를 체크(왼쪽과 오른쪽을 ReservationSlots으로 변경한후 비교하면될듯?)
+            현재 타임라인에 정렬을 유지한채로 ReservationSlots을 삽입
+
+이때 타임라인에 넣을때 ReservationSlots의 오버랩 여부를 체크
+    바이너리서치 위치를 찾고(종료시간만 가지고 정렬해도될듯)
+    해당위치의 왼쪽 엔드과 ReservationSlots의 스타트를 비교(왼쪽엔드<ReservationSlots스타트)
+    해당위치의 오른쪽 스타트와 ReservationSlots의 엔드를 비교(오른쪽스타트>ReservationSlots엔드)
+
+09:00~10:00
+11:00~12:00
+15:00~15:30
