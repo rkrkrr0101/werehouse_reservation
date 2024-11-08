@@ -49,6 +49,8 @@ class ReservationTime(
         return timeSlot
     }
 
+    override fun toString(): String = """startDateTime: $startDateTime  endDateTime: $endDateTime"""
+
     private fun LocalDate.dateUntilWithEnd(endDate: LocalDate): Stream<LocalDate> = this.datesUntil(endDate.plusDays(1))
 
     private fun createTimeSlotForDate(date: LocalDate) =
