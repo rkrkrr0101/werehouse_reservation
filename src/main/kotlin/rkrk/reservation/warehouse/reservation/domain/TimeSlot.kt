@@ -26,6 +26,16 @@ data class TimeSlot(
             else -> TimeOverlapStatus.NON_OVERLAPPING
         }
 
+//    override operator fun compareTo(other: TimeSlot): Int {
+//        val thisDateTime = LocalDateTime.of(this.date, this.endTime)
+//        val otherDateTime = LocalDateTime.of(other.date, other.endTime)
+//        return when {
+//            otherDateTime > thisDateTime -> -1
+//            otherDateTime < thisDateTime -> 1
+//            else -> 0
+//        }
+//    }
+
     companion object {
         fun createFullTime(date: LocalDate): TimeSlot = TimeSlot(date, LocalTime.MIN, LocalTime.MAX)
     }
