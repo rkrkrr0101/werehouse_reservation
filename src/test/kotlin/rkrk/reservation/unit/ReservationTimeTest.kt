@@ -3,23 +3,23 @@ package rkrk.reservation.unit
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import rkrk.reservation.warehouse.reservation.domain.ReservationSlots
+import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ReservationSlotsTest {
+class ReservationTimeTest {
     @Test
     @DisplayName("하루에 끝나는 예약을 타임슬롯리스트로 만들수 있다")
     fun oneDayReservationToTimeSlots() {
         val startDateTime = LocalDateTime.of(2024, 10, 25, 10, 30, 0)
         val endDateTime = LocalDateTime.of(2024, 10, 25, 13, 30, 0)
-        val reservationSlots =
-            ReservationSlots(
+        val reservationTime =
+            ReservationTime(
                 startDateTime,
                 endDateTime,
             )
 
-        val toTimeSlots = reservationSlots.toTimeSlots()
+        val toTimeSlots = reservationTime.toTimeSlots()
 
         Assertions.assertThat(toTimeSlots.size).isEqualTo(1)
 
@@ -34,13 +34,13 @@ class ReservationSlotsTest {
     fun twoDayReservationToTimeSlots() {
         val startDateTime = LocalDateTime.of(2024, 10, 25, 10, 30, 0)
         val endDateTime = LocalDateTime.of(2024, 10, 26, 13, 30, 0)
-        val reservationSlots =
-            ReservationSlots(
+        val reservationTime =
+            ReservationTime(
                 startDateTime,
                 endDateTime,
             )
 
-        val toTimeSlots = reservationSlots.toTimeSlots()
+        val toTimeSlots = reservationTime.toTimeSlots()
 
         Assertions.assertThat(toTimeSlots.size).isEqualTo(2)
 
@@ -58,13 +58,13 @@ class ReservationSlotsTest {
     fun fiveDayReservationToTimeSlots() {
         val startDateTime = LocalDateTime.of(2024, 10, 25, 10, 30, 0)
         val endDateTime = LocalDateTime.of(2024, 10, 29, 13, 30, 0)
-        val reservationSlots =
-            ReservationSlots(
+        val reservationTime =
+            ReservationTime(
                 startDateTime,
                 endDateTime,
             )
 
-        val toTimeSlots = reservationSlots.toTimeSlots()
+        val toTimeSlots = reservationTime.toTimeSlots()
 
         Assertions.assertThat(toTimeSlots.size).isEqualTo(5)
 
@@ -90,13 +90,13 @@ class ReservationSlotsTest {
     fun fiveDayReservationToStartTimeSlot() {
         val startDateTime = LocalDateTime.of(2024, 10, 25, 10, 30, 0)
         val endDateTime = LocalDateTime.of(2024, 10, 29, 13, 30, 0)
-        val reservationSlots =
-            ReservationSlots(
+        val reservationTime =
+            ReservationTime(
                 startDateTime,
                 endDateTime,
             )
 
-        val startTimeSlot = reservationSlots.startTimeSlot()
+        val startTimeSlot = reservationTime.startTimeSlot()
 
         Assertions.assertThat(startTimeSlot.date).isEqualTo(startDateTime.toLocalDate())
         Assertions.assertThat(startTimeSlot.startTime).isEqualTo(startDateTime.toLocalTime())
@@ -108,13 +108,13 @@ class ReservationSlotsTest {
     fun fiveDayReservationToEndTimeSlot() {
         val startDateTime = LocalDateTime.of(2024, 10, 25, 10, 30, 0)
         val endDateTime = LocalDateTime.of(2024, 10, 29, 13, 30, 0)
-        val reservationSlots =
-            ReservationSlots(
+        val reservationTime =
+            ReservationTime(
                 startDateTime,
                 endDateTime,
             )
 
-        val startTimeSlot = reservationSlots.endTimeSlot()
+        val startTimeSlot = reservationTime.endTimeSlot()
 
         Assertions.assertThat(startTimeSlot.date).isEqualTo(endDateTime.toLocalDate())
         Assertions.assertThat(startTimeSlot.startTime).isEqualTo(LocalTime.MIN)

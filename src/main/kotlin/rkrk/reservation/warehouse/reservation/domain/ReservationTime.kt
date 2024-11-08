@@ -7,10 +7,9 @@ import java.util.stream.Stream
 
 // 한 예약에 대한 예약시간
 // 생성자로 받은 시간을 가지고 타임슬롯리스트를 생성할수있음
-// 타임슬롯리스트는 정렬되어있어야함(바이너리서치)
+// 타임슬롯리스트는 정렬되어있어야함
 
-// TODO 테스트생성
-class ReservationSlots(
+class ReservationTime(
     val startDateTime: LocalDateTime,
     val endDateTime: LocalDateTime,
 ) {
