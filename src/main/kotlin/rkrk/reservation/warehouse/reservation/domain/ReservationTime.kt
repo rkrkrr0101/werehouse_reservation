@@ -13,6 +13,10 @@ class ReservationTime(
     val startDateTime: LocalDateTime,
     val endDateTime: LocalDateTime,
 ) {
+    init {
+        require(startDateTime < endDateTime) { "시작시간이 종료시간보다 더 큽니다" }
+    }
+
     private val startDate = startDateTime.toLocalDate()
     private val startTime = startDateTime.toLocalTime()
     private val endDate = endDateTime.toLocalDate()
