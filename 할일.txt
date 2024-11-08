@@ -74,12 +74,16 @@ new.endTime > existing.startTime(새로운 예약 종료시간이 기존예약�
 
 
 타임슬롯(각 날짜별 예약시간)//한예약은 하나이상의 타임슬롯으로 구성됨
+
+
 ReservationSlots(localdatetime2개를 생성자로 받음,해당시간2개를 타임슬롯n개로 쪼개서 가짐)//한예약은 하나의 ReservationSlots으로 구성됨
     ReservationId(필요한가?양방향이 필요하면 있어야할거같긴하다)
     startTime
     endTime
     함수
         타임슬롯리스트 생성
+        스타트타임슬롯 생성
+        엔드 타임슬롯 생성
 
 
 타임라인(ReservationSlots의 모음)//한 창고의 모든 예약은 하나의 타임라인으로 구성됨(창고id와 ReservationSlots의 스타트엔드를 인덱스로)
