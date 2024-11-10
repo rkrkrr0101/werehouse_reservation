@@ -18,7 +18,7 @@ import java.math.BigDecimal
 class TotalFareCalculator {
     fun calTotalFare(
         reservationTime: ReservationTime,
-        price: Long,
+        minutePrice: Long,
     ): BigDecimal {
         var totalPrice = BigDecimal(0)
         val timeSlots = reservationTime.toTimeSlots()
@@ -26,7 +26,7 @@ class TotalFareCalculator {
 
         for (timeSlot in timeSlots) {
             for (fareCalculator in fareCalculators) {
-                totalPrice += fareCalculator.calculate(timeSlot, price)
+                totalPrice += fareCalculator.calculate(timeSlot, minutePrice)
             }
         }
         return totalPrice
