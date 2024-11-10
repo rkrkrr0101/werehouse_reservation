@@ -1,8 +1,10 @@
 package rkrk.reservation.warehouse.warehouse.domain
 
+import rkrk.reservation.warehouse.reservation.domain.TimeLine
+
 class WareHouse(
-    private val id: Long,
-    private val number: Long,
     private val name: String,
-    private val price: Long,
+    private val minuteRate: Long,
+    private val capacity: Long,
+    private val timeLine: TimeLine,
 )

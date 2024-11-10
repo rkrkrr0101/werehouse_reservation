@@ -171,10 +171,10 @@ class TimeLineTest {
                 LocalDateTime.of(2024, 12, 28, 10, 30, 0),
                 LocalDateTime.of(2025, 1, 10, 13, 30, 0),
             )
-        timeLine.reservationTimes.add(reservationTime1)
-        timeLine.reservationTimes.add(reservationTime2)
-        timeLine.reservationTimes.add(reservationTime3)
-        timeLine.reservationTimes.add(reservationTime4)
+        timeLine.addTime(reservationTime1)
+        timeLine.addTime(reservationTime2)
+        timeLine.addTime(reservationTime3)
+        timeLine.addTime(reservationTime4)
 
         return timeLine
     }

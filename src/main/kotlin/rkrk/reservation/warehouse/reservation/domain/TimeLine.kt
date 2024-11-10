@@ -6,14 +6,15 @@ package rkrk.reservation.warehouse.reservation.domain
 // 오버랩되지않는지 확인하고 추가해야함(해당위치로 가서,왼쪽의 end와 대상의 start를 비교,오른쪽의 start와 대상의 end를 비교
 
 class TimeLine {
-    val reservationTimes = mutableListOf<ReservationTime>()
+    private val privateReservationTimes = mutableListOf<ReservationTime>()
+    val reservationTimes: List<ReservationTime> get() = privateReservationTimes.toList()
 
     fun addTime(addTime: ReservationTime) {
         check(overlapCheck(addTime) == TimeOverlapStatus.NON_OVERLAPPING) {
             "Time OverLapping"
         }
-        reservationTimes.add(addTime)
-        reservationTimes.sortBy { it.endDateTime }
+        privateReservationTimes.add(addTime)
+        privateReservationTimes.sortBy { it.endDateTime }
     }
 
     private fun overlapCheck(otherTime: ReservationTime): TimeOverlapStatus {
@@ -32,7 +33,7 @@ class TimeLine {
     }
 
     private fun findAddPosition(addTime: ReservationTime): Int =
-        reservationTimes
+        privateReservationTimes
             .binarySearch {
                 it.endDateTime.compareTo(addTime.endDateTime)
             }.let { if (it < 0) -(it + 1) else it } // 삼항연산풀기?
@@ -43,7 +44,7 @@ class TimeLine {
     ): TimeOverlapStatus {
         if (position <= 0) return TimeOverlapStatus.NON_OVERLAPPING
 
-        val leftTime = this.reservationTimes[position - 1]
+        val leftTime = this.privateReservationTimes[position - 1]
         val overlap =
             leftTime.endTimeSlot().endTime < otherTime.startTimeSlot().startTime
 
@@ -54,9 +55,9 @@ class TimeLine {
         position: Int,
         otherTime: ReservationTime,
     ): TimeOverlapStatus {
-        if (position >= this.reservationTimes.size) return TimeOverlapStatus.NON_OVERLAPPING
+        if (position >= this.privateReservationTimes.size) return TimeOverlapStatus.NON_OVERLAPPING
 
-        val rightTime = this.reservationTimes[position]
+        val rightTime = this.privateReservationTimes[position]
         val overlap =
             otherTime.endTimeSlot().endTime > rightTime.startTimeSlot().startTime
 
