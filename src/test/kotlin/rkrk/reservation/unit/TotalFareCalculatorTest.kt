@@ -44,8 +44,8 @@ class TotalFareCalculatorTest {
     }
 
     @Test
-    @DisplayName("평일 당일의 12시00분까지의 예약에 대해 정상적으로 총 금액을 계산할수있다")
-    fun nightSurchargeMidnightCalculate() {
+    @DisplayName("평일 당일의 자정까지의 예약에 대해 정상적으로 총 금액을 계산할수있다")
+    fun nightSurchargeToMidnightCalculate() {
         val startDateTime = LocalDateTime.of(2024, 10, 24, 23, 30, 0)
         val endDateTime = LocalDateTime.of(2024, 10, 25, 0, 0, 0)
         val reservationTime =
@@ -56,8 +56,22 @@ class TotalFareCalculatorTest {
 
         val totalPrice = TotalFareCalculator().calTotalFare(reservationTime, 100)
 
-        // (100원*180분)+(100원*0.2할증률*90분)=19800
-        // (100*60*3)+(100*0.2*60*1.5)
+        Assertions.assertThat(totalPrice).isEqualTo(BigDecimal("3600.0"))
+    }
+
+    @Test
+    @DisplayName("평일 당일의 자정부터 0시30분까지의 예약에 대해 정상적으로 총 금액을 계산할수있다")
+    fun nightSurchargeMidnightToCalculate() {
+        val startDateTime = LocalDateTime.of(2024, 10, 24, 0, 0, 0)
+        val endDateTime = LocalDateTime.of(2024, 10, 24, 0, 30, 0)
+        val reservationTime =
+            ReservationTime(
+                startDateTime,
+                endDateTime,
+            )
+
+        val totalPrice = TotalFareCalculator().calTotalFare(reservationTime, 100)
+
         Assertions.assertThat(totalPrice).isEqualTo(BigDecimal("3600.0"))
     }
 
