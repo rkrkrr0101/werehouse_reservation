@@ -9,8 +9,7 @@ data class TimeSlot(
     val endTime: LocalTime,
 ) {
     init {
-        require(startTime != endTime) { "시작시간과 종료시간이 같습니다" }
-        require(startTime < endTime) { "시작시간이 종료시간보다 더 큽니다" }
+        require(startTime <= endTime) { "시작시간이 종료시간보다 더 큽니다" }
     }
 
     val isFullTime: Boolean = (this.startTime == LocalTime.MIN) && (this.endTime == LocalTime.MAX)
