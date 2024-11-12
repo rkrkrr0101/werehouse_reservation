@@ -32,6 +32,8 @@ override fun calculateFare(duration: Long): Double {
 
 창고추가,가격변경,이름변경
 
+타임라인의 리스트를 ReservationTime에서 Reservation으로변경
+
 
 
 스키마 추가

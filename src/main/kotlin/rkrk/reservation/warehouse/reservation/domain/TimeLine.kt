@@ -17,7 +17,7 @@ class TimeLine {
         privateReservationTimes.sortBy { it.endDateTime }
     }
 
-    private fun overlapCheck(otherTime: ReservationTime): TimeOverlapStatus {
+    fun overlapCheck(otherTime: ReservationTime): TimeOverlapStatus {
         val position = findAddPosition(otherTime)
 
         val leftOverlap = leftOverlapCheck(position, otherTime)
