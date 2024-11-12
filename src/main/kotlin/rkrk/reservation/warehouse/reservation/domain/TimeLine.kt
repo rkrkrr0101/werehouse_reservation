@@ -6,15 +6,16 @@ package rkrk.reservation.warehouse.reservation.domain
 // 오버랩되지않는지 확인하고 추가해야함(해당위치로 가서,왼쪽의 end와 대상의 start를 비교,오른쪽의 start와 대상의 end를 비교
 
 class TimeLine {
-    private val privateReservationTimes = mutableListOf<ReservationTime>()
-    val reservationTimes: List<ReservationTime> get() = privateReservationTimes.toList()
+    private val privateReservationTimes = mutableListOf<Reservation>()
+    val reservationTimes: List<Reservation> get() = privateReservationTimes.toList()
 
-    fun addTime(addTime: ReservationTime) {
-        check(overlapCheck(addTime) == TimeOverlapStatus.NON_OVERLAPPING) {
+    fun addReservation(reservation: Reservation) {
+        check(overlapCheck(reservation.reservationTime) == TimeOverlapStatus.NON_OVERLAPPING) {
             "Time OverLapping"
         }
-        privateReservationTimes.add(addTime)
-        privateReservationTimes.sortBy { it.endDateTime }
+
+        privateReservationTimes.add(reservation)
+        privateReservationTimes.sortBy { it.reservationTime.endDateTime }
     }
 
     fun overlapCheck(otherTime: ReservationTime): TimeOverlapStatus {
@@ -35,7 +36,7 @@ class TimeLine {
     private fun findAddPosition(addTime: ReservationTime): Int =
         privateReservationTimes
             .binarySearch {
-                it.endDateTime.compareTo(addTime.endDateTime)
+                it.reservationTime.endDateTime.compareTo(addTime.endDateTime)
             }.let { if (it < 0) -(it + 1) else it } // 삼항연산풀기?
 
     private fun leftOverlapCheck(
@@ -46,7 +47,7 @@ class TimeLine {
 
         val leftTime = this.privateReservationTimes[position - 1]
         val overlap =
-            leftTime.endTimeSlot().endTime < otherTime.startTimeSlot().startTime
+            leftTime.reservationTime.endTimeSlot().endTime < otherTime.startTimeSlot().startTime
 
         return toOverlapStatus(overlap)
     }
@@ -59,7 +60,7 @@ class TimeLine {
 
         val rightTime = this.privateReservationTimes[position]
         val overlap =
-            otherTime.endTimeSlot().endTime > rightTime.startTimeSlot().startTime
+            otherTime.endTimeSlot().endTime > rightTime.reservationTime.startTimeSlot().startTime
 
         return toOverlapStatus(overlap)
     }

@@ -1,11 +1,10 @@
 package rkrk.reservation.warehouse.reservation.domain
 
-import rkrk.reservation.warehouse.warehouse.domain.WareHouse
+import java.math.BigDecimal
 
 class Reservation(
-    private val memberName: String,
-    private val wereHouse: WareHouse,
-    private val reservationTime: ReservationTime, // 엔티티에선 LocalDateTime2개로 변경
-    private val price: Long,
-    private val state: ReservationStatus, // enum
+    val memberName: String,
+    val reservationTime: ReservationTime, // 엔티티에선 LocalDateTime2개로 변경
+    val price: BigDecimal,
+    val state: ReservationStatus = ReservationStatus.PENDING,
 )

@@ -2,11 +2,13 @@ package rkrk.reservation.warehouse.reservation.application.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import rkrk.reservation.warehouse.fare.domain.service.TotalFareCalculator
 import rkrk.reservation.warehouse.reservation.application.port.input.ManageReservationUseCase
 import rkrk.reservation.warehouse.reservation.application.port.input.dto.CreatePendingReservationDto
 import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateCancelReservationDto
 import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateConfirmReservationDto
 import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateRefundReservationDto
+import rkrk.reservation.warehouse.reservation.domain.Reservation
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import rkrk.reservation.warehouse.reservation.domain.TimeOverlapStatus
 import rkrk.reservation.warehouse.warehouse.application.port.output.FindWareHousePort
@@ -29,14 +31,17 @@ class ManageReservationService(
         // 들어가도되는지 확인(타임라인에 add)후
         if (wareHouse.checkOverlapReservation(reservationTime) == TimeOverlapStatus.NON_OVERLAPPING) {
             // 인서트
-            //reservationTime이 아닌,Reservation이 저장되어야할거같기도
-            wareHouse.addReservation(reservationTime)
+            // reservationTime이 아닌,Reservation이 저장되어야할거같기도
+            val totalFare = TotalFareCalculator().calTotalFare(reservationTime, wareHouse.retrieveMinutePrice())
+            val reservation = Reservation(dto.memberName, reservationTime, totalFare)
+            wareHouse.addReservation(reservation)
         } else {
             throw RuntimeException() // 여기 커스텀예외로 수정
         }
         // wareHouse저장루틴(엔티티받아서 업데이트로직을 어댑터에 추가)
-        //어댑터에 wareHouse던지면 어댑터에서 알아서 저장
+        // 어댑터에 wareHouse던지면 어댑터에서 알아서 저장
         // 트랜잭션종료
+        return 1
     }
 
     @Transactional
