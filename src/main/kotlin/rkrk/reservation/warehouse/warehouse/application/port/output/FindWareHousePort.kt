@@ -8,4 +8,9 @@ interface FindWareHousePort {
         warehouseName: String,
         reservationTime: ReservationTime,
     ): WareHouse
+
+    fun findWarehouseByReservationTime(
+        warehouseName: String,
+        reservationTime: ReservationTime,
+    ): WareHouse
 }

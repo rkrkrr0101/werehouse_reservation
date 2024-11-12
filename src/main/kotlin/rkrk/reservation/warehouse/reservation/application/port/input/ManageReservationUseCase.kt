@@ -6,11 +6,11 @@ import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateC
 import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateRefundReservationDto
 
 interface ManageReservationUseCase {
-    fun createPendingReservation(dto: CreatePendingReservationDto): Long
+    fun createPendingReservation(dto: CreatePendingReservationDto)
 
-    fun updateConfirmReservation(dto: UpdateConfirmReservationDto): Long
+    fun updateConfirmReservation(dto: UpdateConfirmReservationDto)
 
-    fun updateCancelReservation(dto: UpdateCancelReservationDto): Long
+    fun updateCancelReservation(dto: UpdateCancelReservationDto)
 
-    fun updateRefundReservation(dto: UpdateRefundReservationDto): Long
+    fun updateRefundReservation(dto: UpdateRefundReservationDto)
 }
