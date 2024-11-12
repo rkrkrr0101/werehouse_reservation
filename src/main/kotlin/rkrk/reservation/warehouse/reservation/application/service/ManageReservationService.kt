@@ -13,13 +13,13 @@ import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import rkrk.reservation.warehouse.reservation.domain.TimeOverlapStatus
 import rkrk.reservation.warehouse.warehouse.application.port.output.FindWareHousePort
-import rkrk.reservation.warehouse.warehouse.application.port.output.SaveWareHousePort
+import rkrk.reservation.warehouse.warehouse.application.port.output.UpdateWareHousePort
 
 @Service
 @Transactional(readOnly = true)
 class ManageReservationService(
     private val findWareHousePort: FindWareHousePort,
-    private val saveWareHousePort: SaveWareHousePort,
+    private val updateWareHousePort: UpdateWareHousePort,
     private val findReservationPort: FindReservationPort,
     private val updateReservationPort: UpdateReservationPort,
 ) : ManageReservationUseCase {
@@ -39,7 +39,7 @@ class ManageReservationService(
         }
         // wareHouse저장루틴(엔티티받아서 업데이트로직을 어댑터에 추가)
         // 어댑터에 wareHouse던지면 어댑터에서 알아서 저장
-        saveWareHousePort.save(wareHouse)
+        updateWareHousePort.update(wareHouse)
         // 트랜잭션종료
     }
 
