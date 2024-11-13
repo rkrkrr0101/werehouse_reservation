@@ -8,5 +8,5 @@ interface FindReservationPort {
         wareHouseName: String,
         memberName: String,
         reservationTime: ReservationTime,
-    ): Reservation?
+    ): Reservation
 }

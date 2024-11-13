@@ -37,10 +37,7 @@ class ManageReservationService(
         } else {
             throw RuntimeException() // 여기 커스텀예외로 수정
         }
-        // wareHouse저장루틴(엔티티받아서 업데이트로직을 어댑터에 추가)
-        // 어댑터에 wareHouse던지면 어댑터에서 알아서 저장
         updateWareHousePort.update(wareHouse)
-        // 트랜잭션종료
     }
 
     @Transactional

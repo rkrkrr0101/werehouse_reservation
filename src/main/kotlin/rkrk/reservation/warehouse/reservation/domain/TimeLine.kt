@@ -6,16 +6,16 @@ package rkrk.reservation.warehouse.reservation.domain
 // 오버랩되지않는지 확인하고 추가해야함(해당위치로 가서,왼쪽의 end와 대상의 start를 비교,오른쪽의 start와 대상의 end를 비교
 
 class TimeLine {
-    private val privateReservationTimes = mutableListOf<Reservation>()
-    val reservationTimes: List<Reservation> get() = privateReservationTimes.toList()
+    private val privateReservations = mutableListOf<Reservation>()
+    val reservations: List<Reservation> get() = privateReservations.toList()
 
     fun addReservation(reservation: Reservation) {
         check(overlapCheck(reservation.reservationTime) == TimeOverlapStatus.NON_OVERLAPPING) {
             "Time OverLapping"
         }
 
-        privateReservationTimes.add(reservation)
-        privateReservationTimes.sortBy { it.reservationTime.endDateTime }
+        privateReservations.add(reservation)
+        privateReservations.sortBy { it.reservationTime.endDateTime }
     }
 
     fun overlapCheck(otherTime: ReservationTime): TimeOverlapStatus {
@@ -34,7 +34,7 @@ class TimeLine {
     }
 
     private fun findAddPosition(addTime: ReservationTime): Int =
-        privateReservationTimes
+        privateReservations
             .binarySearch {
                 it.reservationTime.endDateTime.compareTo(addTime.endDateTime)
             }.let { if (it < 0) -(it + 1) else it } // 삼항연산풀기?
@@ -45,7 +45,7 @@ class TimeLine {
     ): TimeOverlapStatus {
         if (position <= 0) return TimeOverlapStatus.NON_OVERLAPPING
 
-        val leftTime = this.privateReservationTimes[position - 1]
+        val leftTime = this.privateReservations[position - 1]
         val overlap =
             leftTime.reservationTime.endTimeSlot().endTime < otherTime.startTimeSlot().startTime
 
@@ -56,9 +56,9 @@ class TimeLine {
         position: Int,
         otherTime: ReservationTime,
     ): TimeOverlapStatus {
-        if (position >= this.privateReservationTimes.size) return TimeOverlapStatus.NON_OVERLAPPING
+        if (position >= this.privateReservations.size) return TimeOverlapStatus.NON_OVERLAPPING
 
-        val rightTime = this.privateReservationTimes[position]
+        val rightTime = this.privateReservations[position]
         val overlap =
             otherTime.endTimeSlot().endTime > rightTime.reservationTime.startTimeSlot().startTime
 

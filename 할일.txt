@@ -34,6 +34,8 @@ override fun calculateFare(duration: Long): Double {
 
 타임라인의 리스트를 ReservationTime에서 Reservation으로변경
 
+UpdateWareHouseAdapter FindReservationAdapter 테스트
+
 
 
 스키마 추가

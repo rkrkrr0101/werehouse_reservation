@@ -40,7 +40,7 @@ class WareHouse(
         memberName: String,
         reservationTime: ReservationTime,
         reservationStatus: ReservationStatus = ReservationStatus.PENDING,
-    ): Reservation  {
+    ): Reservation {
         val totalFare = TotalFareCalculator().calTotalFare(reservationTime, this.minutePrice)
         val reservation = Reservation(memberName, reservationTime, totalFare, reservationStatus)
 

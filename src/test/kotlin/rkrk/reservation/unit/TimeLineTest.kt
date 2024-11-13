@@ -24,8 +24,8 @@ class TimeLineTest {
 
         timeLine.addReservation(reservation)
 
-        Assertions.assertThat(timeLine.reservationTimes.size).isEqualTo(1)
-        Assertions.assertThat(timeLine.reservationTimes[0].reservationTime).isEqualTo(targetTime)
+        Assertions.assertThat(timeLine.reservations.size).isEqualTo(1)
+        Assertions.assertThat(timeLine.reservations[0].reservationTime).isEqualTo(targetTime)
     }
 
     @Test
@@ -41,8 +41,8 @@ class TimeLineTest {
 
         timeLine.addReservation(reservation)
 
-        Assertions.assertThat(timeLine.reservationTimes.size).isEqualTo(5)
-        Assertions.assertThat(timeLine.reservationTimes[1].reservationTime).isEqualTo(targetTime)
+        Assertions.assertThat(timeLine.reservations.size).isEqualTo(5)
+        Assertions.assertThat(timeLine.reservations[1].reservationTime).isEqualTo(targetTime)
     }
 
     @Test
@@ -58,8 +58,8 @@ class TimeLineTest {
 
         timeLine.addReservation(reservation)
 
-        Assertions.assertThat(timeLine.reservationTimes.size).isEqualTo(5)
-        Assertions.assertThat(timeLine.reservationTimes[0].reservationTime).isEqualTo(targetTime)
+        Assertions.assertThat(timeLine.reservations.size).isEqualTo(5)
+        Assertions.assertThat(timeLine.reservations[0].reservationTime).isEqualTo(targetTime)
     }
 
     @Test
@@ -75,8 +75,8 @@ class TimeLineTest {
 
         timeLine.addReservation(reservation)
 
-        Assertions.assertThat(timeLine.reservationTimes.size).isEqualTo(5)
-        Assertions.assertThat(timeLine.reservationTimes[4].reservationTime).isEqualTo(targetTime)
+        Assertions.assertThat(timeLine.reservations.size).isEqualTo(5)
+        Assertions.assertThat(timeLine.reservations[4].reservationTime).isEqualTo(targetTime)
     }
 
     @Test
@@ -92,8 +92,8 @@ class TimeLineTest {
 
         timeLine.addReservation(reservation)
 
-        Assertions.assertThat(timeLine.reservationTimes.size).isEqualTo(5)
-        Assertions.assertThat(timeLine.reservationTimes[0].reservationTime).isEqualTo(targetTime)
+        Assertions.assertThat(timeLine.reservations.size).isEqualTo(5)
+        Assertions.assertThat(timeLine.reservations[0].reservationTime).isEqualTo(targetTime)
     }
 
     @Test
