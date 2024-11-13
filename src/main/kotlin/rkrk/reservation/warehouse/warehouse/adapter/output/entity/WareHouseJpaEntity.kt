@@ -72,7 +72,7 @@ class WareHouseJpaEntity(
         val iterator = reservationJpaEntities.iterator()
         while (iterator.hasNext()) {
             val reservationEntity = iterator.next()
-            if (inputReservations.any {
+            if (!inputReservations.any {
                     it.memberName == reservationEntity.memberName &&
                         it.reservationTime.startDateTime == reservationEntity.startDateTime &&
                         it.reservationTime.endDateTime == reservationEntity.endDateTime

@@ -19,13 +19,17 @@ class TimeLine {
     }
 
     fun overlapCheck(otherTime: ReservationTime): TimeOverlapStatus {
-        val position = findAddPosition(otherTime)
+        val rawIndex = findAddIndex(otherTime)
+        if (rawIndex >= 0) return TimeOverlapStatus.OVERLAPPING
+        val position = convertToInsertPosition(rawIndex) // 바이너리서치
 
         val leftOverlap = leftOverlapCheck(position, otherTime)
         val rightOverlap = rightOverlapCheck(position, otherTime)
+        val fullOverlap = fullOverlapCheck(position, otherTime)
 
         if (leftOverlap == TimeOverlapStatus.NON_OVERLAPPING &&
-            rightOverlap == TimeOverlapStatus.NON_OVERLAPPING
+            rightOverlap == TimeOverlapStatus.NON_OVERLAPPING &&
+            fullOverlap == TimeOverlapStatus.NON_OVERLAPPING
         ) {
             return TimeOverlapStatus.NON_OVERLAPPING
         }
@@ -33,21 +37,26 @@ class TimeLine {
         return TimeOverlapStatus.OVERLAPPING
     }
 
-    private fun findAddPosition(addTime: ReservationTime): Int =
+    private fun convertToInsertPosition(rawIndex: Int) = -(rawIndex + 1)
+
+    private fun findAddIndex(addTime: ReservationTime): Int =
         privateReservations
             .binarySearch {
                 it.reservationTime.endDateTime.compareTo(addTime.endDateTime)
-            }.let { if (it < 0) -(it + 1) else it } // 삼항연산풀기?
+            }
 
     private fun leftOverlapCheck(
         position: Int,
         otherTime: ReservationTime,
     ): TimeOverlapStatus {
         if (position <= 0) return TimeOverlapStatus.NON_OVERLAPPING
-
         val leftTime = this.privateReservations[position - 1]
+        val leftEndTimeSlot = leftTime.reservationTime.endTimeSlot()
+        val otherStartTimeSlot = otherTime.startTimeSlot()
+        if (leftEndTimeSlot.date != otherStartTimeSlot.date) return TimeOverlapStatus.NON_OVERLAPPING
+
         val overlap =
-            leftTime.reservationTime.endTimeSlot().endTime < otherTime.startTimeSlot().startTime
+            leftEndTimeSlot.endTime > otherStartTimeSlot.startTime
 
         return toOverlapStatus(overlap)
     }
@@ -59,8 +68,30 @@ class TimeLine {
         if (position >= this.privateReservations.size) return TimeOverlapStatus.NON_OVERLAPPING
 
         val rightTime = this.privateReservations[position]
+        val rightStartTimeSlot = rightTime.reservationTime.startTimeSlot()
+        val otherEndTimeSlot = otherTime.endTimeSlot()
+
+        if (rightStartTimeSlot.date != otherEndTimeSlot.date) return TimeOverlapStatus.NON_OVERLAPPING
+
         val overlap =
-            otherTime.endTimeSlot().endTime > rightTime.reservationTime.startTimeSlot().startTime
+            otherEndTimeSlot.endTime > rightStartTimeSlot.startTime
+
+        return toOverlapStatus(overlap)
+    }
+
+    private fun fullOverlapCheck(
+        position: Int,
+        otherTime: ReservationTime,
+    ): TimeOverlapStatus {
+        if (position >= this.privateReservations.size) return TimeOverlapStatus.NON_OVERLAPPING
+
+        val rightTime = this.privateReservations[position]
+        val rightStartTime = rightTime.reservationTime.startDateTime
+        val rightEndTime = rightTime.reservationTime.endDateTime
+        val otherStartTime = otherTime.startDateTime
+        val otherEndTime = otherTime.endDateTime
+
+        val overlap = ((rightStartTime < otherStartTime) && (rightEndTime > otherEndTime))
 
         return toOverlapStatus(overlap)
     }
