@@ -6,6 +6,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
+import rkrk.reservation.warehouse.share.BaseEntity
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaEntity
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -21,4 +22,4 @@ class ReservationJpaEntity(
     @JoinColumn(name = "werehouse_id")
     var wereHouse: WareHouseJpaEntity,
     @Id var id: Long = 0,
-)
+) : BaseEntity() {}
