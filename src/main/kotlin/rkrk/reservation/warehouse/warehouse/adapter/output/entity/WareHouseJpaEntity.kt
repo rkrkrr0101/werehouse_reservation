@@ -24,7 +24,7 @@ class WareHouseJpaEntity(
     var capacity: Long,
     @Column(nullable = false)
     var minutePrice: Long,
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "wareHouse", cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "wareHouse", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     var reservationJpaEntities: MutableList<ReservationJpaEntity>,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
