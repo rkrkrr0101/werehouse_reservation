@@ -21,7 +21,7 @@ class TimeLine {
     fun overlapCheck(otherTime: ReservationTime): TimeOverlapStatus {
         val rawIndex = findAddIndex(otherTime)
         if (rawIndex >= 0) return TimeOverlapStatus.OVERLAPPING
-        val position = convertToInsertPosition(rawIndex) // 바이너리서치
+        val position = convertToInsertPosition(rawIndex) // 바이너리서치값 정상화
 
         val leftOverlap = leftOverlapCheck(position, otherTime)
         val rightOverlap = rightOverlapCheck(position, otherTime)

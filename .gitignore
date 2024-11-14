@@ -39,3 +39,4 @@ out/
 ### Kotlin ###
 .kotlin
 /예약시스템 구현.txt
+/.env
