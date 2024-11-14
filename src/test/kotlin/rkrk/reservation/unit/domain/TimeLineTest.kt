@@ -1,4 +1,4 @@
-package rkrk.reservation.unit
+package rkrk.reservation.unit.domain
 
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
@@ -94,6 +94,23 @@ class TimeLineTest {
 
         Assertions.assertThat(timeLine.reservations.size).isEqualTo(5)
         Assertions.assertThat(timeLine.reservations[0].reservationTime).isEqualTo(targetTime)
+    }
+
+    @Test
+    @DisplayName("이전 예약의 종료시간과 새로 추가하는 예약의 시작시간이 일치하는 예약도 추가할수있다")
+    fun stickReservation() {
+        val timeLine = addBasicReservation()
+        val targetTime =
+            ReservationTime(
+                LocalDateTime.of(2024, 10, 23, 13, 30, 0),
+                LocalDateTime.of(2024, 10, 23, 15, 30, 0),
+            )
+        val reservation = Reservation("aa", targetTime, BigDecimal("10000"))
+
+        timeLine.addReservation(reservation)
+
+        Assertions.assertThat(timeLine.reservations.size).isEqualTo(5)
+        Assertions.assertThat(timeLine.reservations[1].reservationTime).isEqualTo(targetTime)
     }
 
     @Test

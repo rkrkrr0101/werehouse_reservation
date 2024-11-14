@@ -1,0 +1,31 @@
+server:
+  forward-headers-strategy: framework
+  servlet:
+    encoding:
+      charset: UTF-8
+      force-response: true
+  port: 8081
+spring:
+  application:
+    name: reservation
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL}
+    username: ${MYSQL_ID}
+    password: ${MYSQL_KEY}
+  jpa:
+    open-in-view: true
+    properties:
+      hibernate:
+        format_sql: true
+        globally_quoted_identifiers: true
+        globally_quoted_identifiers_skip_column_definitions: true
+        default_batch_fetch_size: 100
+        show_sql: true
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+      ddl-auto: create-drop
+
