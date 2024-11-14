@@ -1,25 +1,30 @@
 package rkrk.reservation.warehouse.warehouse.adapter.output.entity
 
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.OneToMany
+import jakarta.persistence.Table
 import rkrk.reservation.warehouse.reservation.adapter.output.entity.ReservationJpaEntity
-import rkrk.reservation.warehouse.reservation.adapter.output.entity.toDomain
+import rkrk.reservation.warehouse.reservation.adapter.output.entity.toTimeLine
 import rkrk.reservation.warehouse.reservation.domain.Reservation
-import rkrk.reservation.warehouse.reservation.domain.TimeLine
 import rkrk.reservation.warehouse.share.BaseEntity
 import rkrk.reservation.warehouse.share.exception.IllegalDomainException
 import rkrk.reservation.warehouse.warehouse.domain.WareHouse
 
 @Entity
+@Table(name = "warehouse")
 class WareHouseJpaEntity(
+    @Column(unique = true, nullable = false)
     var name: String,
     var capacity: Long,
+    @Column(nullable = false)
     var minutePrice: Long,
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "wareHouse")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "wareHouse", cascade = [CascadeType.ALL])
     var reservationJpaEntities: MutableList<ReservationJpaEntity>,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,11 +49,7 @@ class WareHouseJpaEntity(
     }
 
     fun toDomain(): WareHouse {
-        val timeLine = TimeLine()
-        val reservations = reservationJpaEntities.toDomain()
-        for (reservation in reservations) {
-            timeLine.addReservation(reservation)
-        }
+        val timeLine = reservationJpaEntities.toTimeLine()
         return WareHouse(name, minutePrice, capacity, timeLine)
     }
 
