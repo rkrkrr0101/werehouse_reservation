@@ -40,7 +40,17 @@ class ReservationJpaEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 ) : BaseEntity() {
-    fun toDomain(): Reservation = Reservation(memberName, ReservationTime(startDateTime, endDateTime), totalFare, state)
+    fun toDomain(): Reservation =
+        Reservation(
+            memberName,
+            ReservationTime(startDateTime, endDateTime),
+            totalFare,
+            state,
+        )
+
+    fun updateState(reservationStatus: ReservationStatus)  {
+        this.state = reservationStatus
+    }
 }
 
 fun List<ReservationJpaEntity>.toTimeLine(): TimeLine {

@@ -9,9 +9,11 @@ import rkrk.reservation.warehouse.reservation.adapter.output.FindReservationAdap
 import rkrk.reservation.warehouse.reservation.domain.Reservation
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
+import rkrk.reservation.warehouse.reservation.domain.TimeLine
 import rkrk.reservation.warehouse.share.exception.NotFoundEntityException
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaRepository
 import rkrk.reservation.warehouse.warehouse.adapter.output.entity.WareHouseJpaEntity
+import rkrk.reservation.warehouse.warehouse.domain.WareHouse
 import java.time.LocalDateTime
 
 @SpringTestContainerTest
@@ -63,12 +65,12 @@ class FindReservationAdapterTest(
     }
 
     private fun basicInit() {
-        val wareHouseJpaEntity =
-            WareHouseJpaEntity(
+        val wareHouse =
+            WareHouse(
                 "testWareHouse",
                 1000,
                 100,
-                mutableListOf(),
+                TimeLine(),
             )
 
         val reservationTime1 =
@@ -80,7 +82,7 @@ class FindReservationAdapterTest(
             Reservation(
                 "testMember",
                 reservationTime1,
-                wareHouseJpaEntity.toDomain(),
+                wareHouse,
             )
         val reservationTime2 =
             ReservationTime(
@@ -91,10 +93,20 @@ class FindReservationAdapterTest(
             Reservation(
                 "testMember",
                 reservationTime2,
-                wareHouseJpaEntity.toDomain(),
+                wareHouse,
             )
-        wareHouseJpaEntity.addReservation(reservation1)
-        wareHouseJpaEntity.addReservation(reservation2)
+        wareHouse.addReservation(reservation1)
+        wareHouse.addReservation(reservation2)
+
+        val wareHouseJpaEntity =
+            WareHouseJpaEntity(
+                "testWareHouse",
+                1000,
+                100,
+                mutableListOf(),
+            )
+
+        wareHouseJpaEntity.update(wareHouse)
 
         wareHouseRepository.save(wareHouseJpaEntity)
     }

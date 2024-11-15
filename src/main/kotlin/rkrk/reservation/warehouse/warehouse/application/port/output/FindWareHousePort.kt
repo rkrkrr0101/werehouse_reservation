@@ -4,7 +4,7 @@ import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import rkrk.reservation.warehouse.warehouse.domain.WareHouse
 
 interface FindWareHousePort {
-    fun findAndLockWarehouseForReservationTime(
+    fun findAndLockWarehouseByReservationTime(
         warehouseName: String,
         reservationTime: ReservationTime,
     ): WareHouse

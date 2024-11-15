@@ -37,8 +37,13 @@ override fun calculateFare(duration: Long): Double {
 UpdateWareHouseAdapter FindReservationAdapter 테스트
 WareHouseJpaEntity 업데이트로직 테스트
 
+//완
 인덱스
 
+updateReservationAdapter findWarehouseAdapter 완성 //완
+ManageReservationService완성//완
+updateReservationAdapter findWarehouseAdapter 테스트
+ManageReservationService테스트
 
 
 

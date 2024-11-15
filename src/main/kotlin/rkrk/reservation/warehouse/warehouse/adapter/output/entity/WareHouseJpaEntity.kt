@@ -30,12 +30,12 @@ class WareHouseJpaEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 ) : BaseEntity() {
-    fun addReservation(reservation: ReservationJpaEntity) {
+    private fun addReservation(reservation: ReservationJpaEntity) {
         reservationJpaEntities.add(reservation)
         reservation.wareHouse = this
     }
 
-    fun addReservation(reservation: Reservation) {
+    private fun addReservation(reservation: Reservation) {
         val newReservationJpaEntity =
             ReservationJpaEntity(
                 reservation.memberName,
@@ -83,7 +83,5 @@ class WareHouseJpaEntity(
                 // reservationEntity.wareHouse=null //캐스캐이드로 어짜피사라짐
             }
         }
-
-        // 이미있는거 갱신은 이쪽이 아닌 ReservationJpaEntity에서 할일
     }
 }
