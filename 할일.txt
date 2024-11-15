@@ -38,10 +38,16 @@ UpdateWareHouseAdapter FindReservationAdapter 테스트
 WareHouseJpaEntity 업데이트로직 테스트
 
 //완
-인덱스
+
 
 updateReservationAdapter findWarehouseAdapter 완성 //완
 ManageReservationService완성//완
+인덱스생성//완
+    reservation
+        warehouse_id
+        member_name,warehouse_id,startDateTime,endDateTime
+    warehouse
+        name
 updateReservationAdapter findWarehouseAdapter 테스트
 ManageReservationService테스트
 

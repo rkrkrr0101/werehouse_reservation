@@ -8,6 +8,7 @@ import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.Index
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
@@ -21,7 +22,17 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "reservations")
+@Table(
+    name = "reservations",
+    indexes = [
+        Index(name = "idx_warehouse_id", columnList = "warehouse_id"),
+        Index(
+            name = "idx_warehouse_reservation_timeline",
+            columnList = "member_name,warehouse_id,startDateTime,endDateTime",
+            unique = true,
+        ),
+    ],
+)
 class ReservationJpaEntity(
     @Column(nullable = false)
     var memberName: String,
@@ -48,7 +59,7 @@ class ReservationJpaEntity(
             state,
         )
 
-    fun updateState(reservationStatus: ReservationStatus)  {
+    fun updateState(reservationStatus: ReservationStatus) {
         this.state = reservationStatus
     }
 }

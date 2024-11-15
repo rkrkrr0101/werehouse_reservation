@@ -7,6 +7,7 @@ import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.Index
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import rkrk.reservation.warehouse.reservation.adapter.output.entity.ReservationJpaEntity
@@ -17,7 +18,10 @@ import rkrk.reservation.warehouse.share.exception.IllegalDomainException
 import rkrk.reservation.warehouse.warehouse.domain.WareHouse
 
 @Entity
-@Table(name = "warehouse")
+@Table(
+    name = "warehouse",
+    indexes = [Index(name = "idx_warehouse_name", columnList = "name")],
+)
 class WareHouseJpaEntity(
     @Column(unique = true, nullable = false)
     var name: String,
