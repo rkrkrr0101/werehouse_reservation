@@ -49,6 +49,7 @@ class ReservationJpaEntity(
     var wareHouse: WareHouseJpaEntity,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Suppress("unused")
     var id: Long = 0,
 ) : BaseEntity() {
     fun toDomain(): Reservation =

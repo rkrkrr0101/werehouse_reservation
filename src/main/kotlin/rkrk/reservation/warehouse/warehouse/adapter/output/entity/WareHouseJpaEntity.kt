@@ -32,6 +32,7 @@ class WareHouseJpaEntity(
     var reservationJpaEntities: MutableList<ReservationJpaEntity>,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Suppress("unused")
     var id: Long = 0,
 ) : BaseEntity() {
     private fun addReservation(reservation: ReservationJpaEntity) {
