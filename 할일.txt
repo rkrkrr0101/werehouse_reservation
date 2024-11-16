@@ -46,6 +46,7 @@ ManageReservationService완성//완
     reservation
         warehouse_id
         member_name,warehouse_id,startDateTime,endDateTime
+        warehouse_id,startDateTime,endDateTime
     warehouse
         name
 updateReservationAdapter findWarehouseAdapter 테스트

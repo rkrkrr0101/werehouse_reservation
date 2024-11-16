@@ -25,10 +25,10 @@ import java.time.LocalDateTime
 @Table(
     name = "reservations",
     indexes = [
-        Index(name = "idx_warehouse_id", columnList = "warehouse_id"),
+        Index(name = "idx_member_warehouse", columnList = "member_name,warehouse_id"),
         Index(
             name = "idx_warehouse_reservation_timeline",
-            columnList = "member_name,warehouse_id,startDateTime,endDateTime",
+            columnList = "warehouse_id,startDateTime,endDateTime",
             unique = true,
         ),
     ],
