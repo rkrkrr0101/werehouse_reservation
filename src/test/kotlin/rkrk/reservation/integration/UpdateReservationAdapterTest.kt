@@ -4,7 +4,6 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.transaction.annotation.Transactional
 import rkrk.reservation.helper.InitHelper
 import rkrk.reservation.helper.SpringTestContainerTest
 import rkrk.reservation.warehouse.reservation.adapter.output.ReservationJpaRepository
@@ -13,7 +12,6 @@ import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaRepository
 
 @SpringTestContainerTest
-@Transactional
 class UpdateReservationAdapterTest(
     @Autowired val wareHouseJpaRepository: WareHouseJpaRepository,
     @Autowired val reservationJpaRepository: ReservationJpaRepository,
