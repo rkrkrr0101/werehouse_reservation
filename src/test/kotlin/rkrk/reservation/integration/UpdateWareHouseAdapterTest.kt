@@ -4,27 +4,26 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import rkrk.reservation.helper.InitHelper
 import rkrk.reservation.helper.SpringTestContainerTest
-import rkrk.reservation.warehouse.reservation.domain.Reservation
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
-import rkrk.reservation.warehouse.reservation.domain.TimeLine
 import rkrk.reservation.warehouse.warehouse.adapter.output.UpdateWareHouseAdapter
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaRepository
-import rkrk.reservation.warehouse.warehouse.adapter.output.entity.WareHouseJpaEntity
-import rkrk.reservation.warehouse.warehouse.domain.WareHouse
 import java.time.LocalDateTime
 
 @SpringTestContainerTest
 class UpdateWareHouseAdapterTest(
-    @Autowired val wareHouseRepository: WareHouseJpaRepository,
+    @Autowired val wareHouseJpaRepository: WareHouseJpaRepository,
     @Autowired val updateWareHouseAdapter: UpdateWareHouseAdapter,
 ) {
+    private val initHelper = InitHelper()
+
     @Test
     @DisplayName("정상적으로 창고의 예약을 추가후 업데이트할수있다")
     fun updateWareHouseToAddReservation() {
-        basicInit()
+        initHelper.basicInit(wareHouseJpaRepository)
         val wareHouseJpaEntity =
-            wareHouseRepository.findByName("testWareHouse")
+            wareHouseJpaRepository.findByName("testWareHouse")
                 ?: throw RuntimeException()
         val wareHouse = wareHouseJpaEntity.toDomain()
         val startDateTime = LocalDateTime.of(2024, 10, 24, 16, 30)
@@ -42,7 +41,7 @@ class UpdateWareHouseAdapterTest(
         updateWareHouseAdapter.update(wareHouse)
 
         val resEntity =
-            wareHouseRepository.findByName("testWareHouse")
+            wareHouseJpaRepository.findByName("testWareHouse")
                 ?: throw RuntimeException()
         Assertions.assertThat(resEntity.reservationJpaEntities.size).isEqualTo(3)
         Assertions
@@ -54,52 +53,5 @@ class UpdateWareHouseAdapterTest(
                         it.wareHouse == wareHouseJpaEntity
                 },
             ).isNotNull
-    }
-
-    private fun basicInit() {
-        val wareHouse =
-            WareHouse(
-                "testWareHouse",
-                1000,
-                100,
-                TimeLine(),
-            )
-
-        val reservationTime1 =
-            ReservationTime(
-                LocalDateTime.of(2024, 10, 24, 10, 30),
-                LocalDateTime.of(2024, 10, 24, 12, 30),
-            )
-        val reservation1 =
-            Reservation(
-                "testMember",
-                reservationTime1,
-                wareHouse,
-            )
-        val reservationTime2 =
-            ReservationTime(
-                LocalDateTime.of(2024, 10, 24, 13, 30),
-                LocalDateTime.of(2024, 10, 24, 15, 30),
-            )
-        val reservation2 =
-            Reservation(
-                "testMember",
-                reservationTime2,
-                wareHouse,
-            )
-        wareHouse.addReservation(reservation1)
-        wareHouse.addReservation(reservation2)
-
-        val wareHouseJpaEntity =
-            WareHouseJpaEntity(
-                "testWareHouse",
-                1000,
-                100,
-                mutableListOf(),
-            )
-
-        wareHouseJpaEntity.update(wareHouse)
-
-        wareHouseRepository.save(wareHouseJpaEntity)
     }
 }

@@ -4,27 +4,26 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import rkrk.reservation.helper.InitHelper
 import rkrk.reservation.helper.SpringTestContainerTest
 import rkrk.reservation.warehouse.reservation.adapter.output.FindReservationAdapter
-import rkrk.reservation.warehouse.reservation.domain.Reservation
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
-import rkrk.reservation.warehouse.reservation.domain.TimeLine
 import rkrk.reservation.warehouse.share.exception.NotFoundEntityException
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaRepository
-import rkrk.reservation.warehouse.warehouse.adapter.output.entity.WareHouseJpaEntity
-import rkrk.reservation.warehouse.warehouse.domain.WareHouse
 import java.time.LocalDateTime
 
 @SpringTestContainerTest
 class FindReservationAdapterTest(
-    @Autowired val wareHouseRepository: WareHouseJpaRepository,
+    @Autowired val wareHouseJpaRepository: WareHouseJpaRepository,
     @Autowired val findReservationAdapter: FindReservationAdapter,
 ) {
+    private val initHelper = InitHelper()
+
     @Test
     @DisplayName("정상적으로 예약을 조회할수있다")
     fun findReservation() {
-        basicInit()
+        initHelper.basicInit(wareHouseJpaRepository)
 
         val reservationTime =
             ReservationTime(
@@ -47,7 +46,7 @@ class FindReservationAdapterTest(
     @Test
     @DisplayName("없는예약을 조회하면 예외를 리턴한다")
     fun notFindReservation() {
-        basicInit()
+        initHelper.basicInit(wareHouseJpaRepository)
 
         val reservationTime =
             ReservationTime(
@@ -62,52 +61,5 @@ class FindReservationAdapterTest(
                     reservationTime,
                 )
             }.isInstanceOf(NotFoundEntityException::class.java)
-    }
-
-    private fun basicInit() {
-        val wareHouse =
-            WareHouse(
-                "testWareHouse",
-                1000,
-                100,
-                TimeLine(),
-            )
-
-        val reservationTime1 =
-            ReservationTime(
-                LocalDateTime.of(2024, 10, 24, 10, 30),
-                LocalDateTime.of(2024, 10, 24, 12, 30),
-            )
-        val reservation1 =
-            Reservation(
-                "testMember",
-                reservationTime1,
-                wareHouse,
-            )
-        val reservationTime2 =
-            ReservationTime(
-                LocalDateTime.of(2024, 10, 24, 13, 30),
-                LocalDateTime.of(2024, 10, 24, 15, 30),
-            )
-        val reservation2 =
-            Reservation(
-                "testMember",
-                reservationTime2,
-                wareHouse,
-            )
-        wareHouse.addReservation(reservation1)
-        wareHouse.addReservation(reservation2)
-
-        val wareHouseJpaEntity =
-            WareHouseJpaEntity(
-                "testWareHouse",
-                1000,
-                100,
-                mutableListOf(),
-            )
-
-        wareHouseJpaEntity.update(wareHouse)
-
-        wareHouseRepository.save(wareHouseJpaEntity)
     }
 }

@@ -1,0 +1,6 @@
+package rkrk.reservation.integration
+
+import rkrk.reservation.helper.SpringTestContainerTest
+
+@SpringTestContainerTest
+class FindWareHouseAdapterTest
