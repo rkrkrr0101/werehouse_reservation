@@ -4,15 +4,19 @@ import rkrk.reservation.warehouse.reservation.domain.Reservation
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import rkrk.reservation.warehouse.reservation.domain.TimeLine
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaRepository
-import rkrk.reservation.warehouse.warehouse.adapter.output.entity.WareHouseJpaEntity
+import rkrk.reservation.warehouse.warehouse.adapter.output.entity.toNewEntity
 import rkrk.reservation.warehouse.warehouse.domain.WareHouse
 import java.time.LocalDateTime
 
 class InitHelper {
+    fun getWareHouseName(): String = "testWareHouse"
+
+    fun getMemberName(): String = "testMember"
+
     fun basicInit(wareHouseJpaRepository: WareHouseJpaRepository) {
         val wareHouse =
             WareHouse(
-                "testWareHouse",
+                getWareHouseName(),
                 1000,
                 100,
                 TimeLine(),
@@ -25,7 +29,7 @@ class InitHelper {
             )
         val reservation1 =
             Reservation(
-                "testMember",
+                getMemberName(),
                 reservationTime1,
                 wareHouse,
             )
@@ -36,20 +40,21 @@ class InitHelper {
             )
         val reservation2 =
             Reservation(
-                "testMember",
+                getMemberName(),
                 reservationTime2,
                 wareHouse,
             )
         wareHouse.addReservation(reservation1)
         wareHouse.addReservation(reservation2)
 
-        val wareHouseJpaEntity =
-            WareHouseJpaEntity(
-                "testWareHouse",
-                1000,
-                100,
-                mutableListOf(),
-            )
+//        val wareHouseJpaEntity =
+//            WareHouseJpaEntity(
+//                getWareHouseName(),
+//                1000,
+//                100,
+//                mutableListOf(),
+//            )
+        val wareHouseJpaEntity = wareHouse.toNewEntity()
 
         wareHouseJpaEntity.update(wareHouse)
 
