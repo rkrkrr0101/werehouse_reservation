@@ -90,3 +90,15 @@ class WareHouseJpaEntity(
         }
     }
 }
+
+fun WareHouse.toNewEntity(): WareHouseJpaEntity {
+    val wareHouseJpaEntity =
+        WareHouseJpaEntity(
+            this.retrieveName(),
+            this.retrieveCapacity(),
+            this.retrieveMinutePrice(),
+            mutableListOf(),
+        )
+    wareHouseJpaEntity.update(this)
+    return wareHouseJpaEntity
+}
