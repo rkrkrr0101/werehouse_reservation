@@ -15,10 +15,9 @@ class FindWareHouseAdapter(
         warehouseName: String,
         reservationTime: ReservationTime,
     ): WareHouse {
-        val wareHouseJpaEntity = wareHouseRepository.findByName(warehouseName)
         reservationRepository
-            .findAndLockWarehouseByReservationTime(wareHouseJpaEntity.id, reservationTime)
-        return wareHouseJpaEntity.toDomain()
+            .findAndLockWarehouseByReservationTime(warehouseName, reservationTime)
+        return wareHouseRepository.findByName(warehouseName).toDomain()
     }
 
     override fun findWarehouseByName(warehouseName: String): WareHouse =

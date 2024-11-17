@@ -18,11 +18,11 @@ class ReservationRepository(
             ?: throw NotFoundEntityException("Reservation을 찾지못했습니다")
 
     fun findAndLockWarehouseByReservationTime(
-        wareHouseId: Long,
+        wareHouseName: String,
         reservationTime: ReservationTime,
     ): List<ReservationJpaEntity> =
         repository.findAndLockByReservationTime(
-            wareHouseId,
+            wareHouseName,
             reservationTime.startDateTime,
             reservationTime.endDateTime,
         )

@@ -26,13 +26,13 @@ interface ReservationJpaRepository : JpaRepository<ReservationJpaEntity, Long> {
 
     @Query(
         " select r from ReservationJpaEntity r join fetch r.wareHouse " +
-            " where r.wareHouse.id=:wareHouseId " +
+            " where r.wareHouse.name=:wareHouseName " +
             " and (r.endDateTime>=:startDateTime and r.startDateTime< :endDateTime ) ",
     )
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @QueryHints(value = [QueryHint(name = "javax.persistence.lock.timeout", value = "3000")])
+    @QueryHints(value = [QueryHint(name = "jakarta.persistence.lock.timeout", value = "3000")])
     fun findAndLockByReservationTime(
-        wareHouseId: Long,
+        wareHouseName: String,
         startDateTime: LocalDateTime,
         endDateTime: LocalDateTime,
     ): List<ReservationJpaEntity>
