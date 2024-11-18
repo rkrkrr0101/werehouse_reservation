@@ -7,6 +7,7 @@ import rkrk.reservation.warehouse.reservation.domain.Reservation
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import rkrk.reservation.warehouse.reservation.domain.TimeLine
+import rkrk.reservation.warehouse.share.exception.OverlapException
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -126,7 +127,7 @@ class TimeLineTest {
 
         Assertions
             .assertThatThrownBy { timeLine.addReservation(reservation) }
-            .isInstanceOf(IllegalStateException::class.java)
+            .isInstanceOf(OverlapException::class.java)
     }
 
     @Test
@@ -142,7 +143,7 @@ class TimeLineTest {
 
         Assertions
             .assertThatThrownBy { timeLine.addReservation(reservation) }
-            .isInstanceOf(IllegalStateException::class.java)
+            .isInstanceOf(OverlapException::class.java)
     }
 
     @Test
@@ -158,7 +159,7 @@ class TimeLineTest {
 
         Assertions
             .assertThatThrownBy { timeLine.addReservation(reservation) }
-            .isInstanceOf(IllegalStateException::class.java)
+            .isInstanceOf(OverlapException::class.java)
     }
 
     @Test
@@ -174,7 +175,7 @@ class TimeLineTest {
 
         Assertions
             .assertThatThrownBy { timeLine.addReservation(reservation) }
-            .isInstanceOf(IllegalStateException::class.java)
+            .isInstanceOf(OverlapException::class.java)
     }
 
     private fun addBasicReservation(): TimeLine {
