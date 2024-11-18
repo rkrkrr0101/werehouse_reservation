@@ -1,5 +1,6 @@
 package rkrk.reservation.helper
 
+import rkrk.reservation.warehouse.reservation.adapter.output.ReservationJpaRepository
 import rkrk.reservation.warehouse.reservation.domain.Reservation
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import rkrk.reservation.warehouse.reservation.domain.TimeLine
@@ -47,17 +48,16 @@ class InitHelper {
         wareHouse.addReservation(reservation1)
         wareHouse.addReservation(reservation2)
 
-//        val wareHouseJpaEntity =
-//            WareHouseJpaEntity(
-//                getWareHouseName(),
-//                1000,
-//                100,
-//                mutableListOf(),
-//            )
         val wareHouseJpaEntity = wareHouse.toNewEntity()
 
-        wareHouseJpaEntity.update(wareHouse)
-
         wareHouseJpaRepository.save(wareHouseJpaEntity)
+    }
+
+    fun basicClear(
+        wareHouseJpaRepository: WareHouseJpaRepository,
+        reservationJpaRepository: ReservationJpaRepository,
+    ) {
+        reservationJpaRepository.deleteAll()
+        wareHouseJpaRepository.deleteAll()
     }
 }

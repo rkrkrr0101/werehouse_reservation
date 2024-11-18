@@ -1,11 +1,11 @@
-package rkrk.reservation.integration
+package rkrk.reservation.integration.adapter
 
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import rkrk.reservation.helper.InitHelper
-import rkrk.reservation.helper.SpringTestContainerTest
+import rkrk.reservation.helper.SpringTestContainerTestWithTransactional
 import rkrk.reservation.warehouse.reservation.adapter.output.FindReservationAdapter
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
@@ -13,7 +13,7 @@ import rkrk.reservation.warehouse.share.exception.NotFoundEntityException
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaRepository
 import java.time.LocalDateTime
 
-@SpringTestContainerTest
+@SpringTestContainerTestWithTransactional
 class FindReservationAdapterTest(
     @Autowired val wareHouseJpaRepository: WareHouseJpaRepository,
     @Autowired val findReservationAdapter: FindReservationAdapter,
