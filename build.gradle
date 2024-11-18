@@ -24,6 +24,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.9.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0' //테스트용의존성,runtest같은거
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -34,7 +37,7 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter:1.19.4'  // TC 의존성
     testImplementation 'org.testcontainers:mysql:1.19.4'     // mySQL 컨테이너 사용
     testImplementation 'org.testcontainers:jdbc:1.19.4'           // DB와의 JDBC connection
-    //testImplementation 'org.springframework:spring-tx'           // txTemplate
+
 
 }
 

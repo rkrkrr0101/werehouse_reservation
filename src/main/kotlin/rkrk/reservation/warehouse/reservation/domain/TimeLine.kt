@@ -1,5 +1,8 @@
 package rkrk.reservation.warehouse.reservation.domain
 
+import rkrk.reservation.warehouse.share.exception.OverlapException
+import rkrk.reservation.warehouse.share.exception.checkCustomException
+
 // 한 창고에 대한 총 예약시간
 // 생성자로 받은 시간을 가지고 타임슬롯리스트를 생성할수있음
 // 타임슬롯리스트는 end시간으로 정렬되어있어야함(바이너리서치)
@@ -10,8 +13,8 @@ class TimeLine {
     val reservations: List<Reservation> get() = privateReservations.toList()
 
     fun addReservation(reservation: Reservation) {
-        check(overlapCheck(reservation.reservationTime) == TimeOverlapStatus.NON_OVERLAPPING) {
-            "Time OverLapping"
+        checkCustomException(overlapCheck(reservation.reservationTime) == TimeOverlapStatus.NON_OVERLAPPING) {
+            OverlapException("Time OverLapping")
         }
 
         privateReservations.add(reservation)

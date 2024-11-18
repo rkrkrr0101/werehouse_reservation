@@ -51,15 +51,17 @@ ManageReservationService완성//완
         name
 updateReservationAdapter findWarehouseAdapter 테스트 //완
 ManageReservationService테스트//여기서 비관적락 동작테스트 https://markme-inur.tistory.com/145
-서비스
+ManageReservationService 나머지 테스트
+MemberReservationService 작성
+MemberReservationService 테스트
+WarehouseTotalReservationService 작성
+WarehouseTotalReservationService 테스트
+컨트롤러 작성
 
 비관적락 테스트 코루틴으로 변경
 테스트 수 늘리기
     락걸고 범위밖에(락이안걸린곳)에 추가하기
     충돌체크
-    충돌후 롤백후 2번스레드에서 삽입가능한지 테스트
-    100개스레드에서 각각 충돌없이 삽입할때 걸리는시간
-    100개스레드에서 전부 충돌할때 삽입할때 걸리는시간 //이건 필요한가
 
 
 
