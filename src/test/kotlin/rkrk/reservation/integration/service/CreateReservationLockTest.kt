@@ -1,11 +1,11 @@
 package rkrk.reservation.integration.service
 
 import org.assertj.core.api.Assertions
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.Rollback
-import org.springframework.test.context.transaction.AfterTransaction
 import rkrk.reservation.helper.InitHelper
 import rkrk.reservation.helper.SpringTestContainerTest
 import rkrk.reservation.warehouse.reservation.adapter.output.ReservationJpaRepository
@@ -25,7 +25,7 @@ class CreateReservationLockTest(
 ) {
     private val initHelper = InitHelper()
 
-    @AfterTransaction
+    @AfterEach
     @Rollback(false)
     fun clear() {
         initHelper.basicClear(wareHouseJpaRepository, reservationJpaRepository)
