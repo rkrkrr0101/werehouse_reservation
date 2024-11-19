@@ -79,7 +79,7 @@ class ManageReservationService(
         // 환불로직
         // 환불로직끝
 
-        reservation.updateState(ReservationStatus.CONFIRMED)
+        reservation.updateState(ReservationStatus.REFUNDED)
 
         updateReservationPort.updateReservation(wareHouse, reservation)
     }
