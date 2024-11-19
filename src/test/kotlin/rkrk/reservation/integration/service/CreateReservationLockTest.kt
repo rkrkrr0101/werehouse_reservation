@@ -101,7 +101,7 @@ class CreateReservationLockTest(
                             1 -> reservationTime1
                             2 -> reservationTime2
                             3 -> reservationTime3
-                            else -> reservationTime3
+                            else -> throw RuntimeException()
                         }
                     manageReservationUseCase.createPendingReservation(
                         createDto(
