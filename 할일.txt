@@ -54,9 +54,10 @@ ManageReservationService테스트//여기서 비관적락 동작테스트 https:
 ManageReservationService 나머지 테스트//완
 MemberReservationService 작성//완
 MemberReservationService 테스트//완
-WarehouseTotalReservationService 작성
-WarehouseTotalReservationService 테스트
+WarehouseTotalReservationService 작성//완
+WarehouseTotalReservationService 테스트//완
 컨트롤러 작성
+예외핸들러작성
 
 컨트롤러 작성 후 findMemberReservation시 n+1터지는지 체크(대충 200개쯤넣어서)
 
