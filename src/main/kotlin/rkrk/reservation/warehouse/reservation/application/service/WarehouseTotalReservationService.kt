@@ -5,14 +5,29 @@ import org.springframework.transaction.annotation.Transactional
 import rkrk.reservation.warehouse.reservation.application.port.input.WarehouseTotalReservationQuery
 import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestFindTotalReservationByWarehouseDto
 import rkrk.reservation.warehouse.reservation.application.port.input.dto.response.ResponseFindTotalReservationByWareHouseDto
+import rkrk.reservation.warehouse.warehouse.application.port.output.FindWareHousePort
 
 @Service
 @Transactional(readOnly = true)
-class WarehouseTotalReservationService : WarehouseTotalReservationQuery {
-    // 리턴값 dto로 변경
+class WarehouseTotalReservationService(
+    private val findWareHousePort: FindWareHousePort,
+) : WarehouseTotalReservationQuery {
     override fun findWarehouseTotalReservation(
         dto: RequestFindTotalReservationByWarehouseDto,
     ): List<ResponseFindTotalReservationByWareHouseDto> {
-        TODO("Not yet implemented")
+        val wareHouse = findWareHousePort.findWarehouseByName(dto.warehouseName)
+        val resList = mutableListOf<ResponseFindTotalReservationByWareHouseDto>()
+        wareHouse.retrieveTotalReservations().reservations.forEach {
+            resList.add(
+                ResponseFindTotalReservationByWareHouseDto(
+                    it.memberName,
+                    it.reservationTime.startDateTime,
+                    it.reservationTime.endDateTime,
+                    it.totalFare,
+                    it.state,
+                ),
+            )
+        }
+        return resList
     }
 }
