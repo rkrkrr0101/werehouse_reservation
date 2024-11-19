@@ -1,5 +1,5 @@
 package rkrk.reservation.warehouse.reservation.application.port.input.dto
 
-data class FindMemberReservationDto(
-    private val memberName: String,
+data class RequestReservationByMemberDto(
+    val memberName: String,
 )

@@ -72,3 +72,11 @@ fun List<ReservationJpaEntity>.toTimeLine(): TimeLine {
     }
     return timeLine
 }
+
+fun List<ReservationJpaEntity>.toReservationList(): List<Reservation> {
+    val reservationList = mutableListOf<Reservation>()
+    for (entity in this) {
+        reservationList.add(entity.toDomain())
+    }
+    return reservationList
+}

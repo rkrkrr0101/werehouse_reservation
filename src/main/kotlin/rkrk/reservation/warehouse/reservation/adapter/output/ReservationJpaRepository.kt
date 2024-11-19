@@ -36,4 +36,9 @@ interface ReservationJpaRepository : JpaRepository<ReservationJpaEntity, Long> {
         startDateTime: LocalDateTime,
         endDateTime: LocalDateTime,
     ): List<ReservationJpaEntity>
+
+    @Query(
+        " select r from ReservationJpaEntity r where r.memberName=:memberName ",
+    )
+    fun findMember(memberName: String): List<ReservationJpaEntity>
 }

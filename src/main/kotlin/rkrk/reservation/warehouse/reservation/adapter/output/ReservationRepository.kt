@@ -26,4 +26,6 @@ class ReservationRepository(
             reservationTime.startDateTime,
             reservationTime.endDateTime,
         )
+
+    fun findMember(memberName: String): List<ReservationJpaEntity> = repository.findMember(memberName)
 }
