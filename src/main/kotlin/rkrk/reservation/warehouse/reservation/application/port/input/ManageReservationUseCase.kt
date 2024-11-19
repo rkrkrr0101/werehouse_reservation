@@ -1,16 +1,16 @@
 package rkrk.reservation.warehouse.reservation.application.port.input
 
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.CreatePendingReservationDto
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateCancelReservationDto
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateConfirmReservationDto
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateRefundReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestCreatePendingReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateCancelReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateConfirmReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateRefundReservationDto
 
 interface ManageReservationUseCase {
-    fun createPendingReservation(dto: CreatePendingReservationDto)
+    fun createPendingReservation(dto: RequestCreatePendingReservationDto)
 
-    fun updateConfirmReservation(dto: UpdateConfirmReservationDto)
+    fun updateConfirmReservation(dto: RequestUpdateConfirmReservationDto)
 
-    fun updateCancelReservation(dto: UpdateCancelReservationDto)
+    fun updateCancelReservation(dto: RequestUpdateCancelReservationDto)
 
-    fun updateRefundReservation(dto: UpdateRefundReservationDto)
+    fun updateRefundReservation(dto: RequestUpdateRefundReservationDto)
 }

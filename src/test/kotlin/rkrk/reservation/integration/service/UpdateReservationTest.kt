@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import rkrk.reservation.helper.InitHelper
 import rkrk.reservation.helper.SpringTestContainerTestWithTransactional
 import rkrk.reservation.warehouse.reservation.application.port.input.ManageReservationUseCase
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateCancelReservationDto
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateConfirmReservationDto
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateRefundReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateCancelReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateConfirmReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateRefundReservationDto
 import rkrk.reservation.warehouse.reservation.application.port.output.FindReservationPort
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
@@ -29,7 +29,7 @@ class UpdateReservationTest(
     fun cancelReservation() {
         initHelper.basicInit(wareHouseJpaRepository)
         val dto =
-            UpdateCancelReservationDto(
+            RequestUpdateCancelReservationDto(
                 initHelper.getMemberName(),
                 initHelper.getWareHouseName(),
                 LocalDateTime.of(2024, 10, 24, 10, 30),
@@ -48,7 +48,7 @@ class UpdateReservationTest(
     fun refundReservation() {
         initHelper.basicInit(wareHouseJpaRepository)
         val dto =
-            UpdateRefundReservationDto(
+            RequestUpdateRefundReservationDto(
                 initHelper.getMemberName(),
                 initHelper.getWareHouseName(),
                 LocalDateTime.of(2024, 10, 24, 10, 30),
@@ -67,7 +67,7 @@ class UpdateReservationTest(
     fun confirmReservation() {
         initHelper.basicInit(wareHouseJpaRepository)
         val dto =
-            UpdateConfirmReservationDto(
+            RequestUpdateConfirmReservationDto(
                 initHelper.getMemberName(),
                 initHelper.getWareHouseName(),
                 LocalDateTime.of(2024, 10, 24, 10, 30),

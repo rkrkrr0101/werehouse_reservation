@@ -10,7 +10,7 @@ import rkrk.reservation.helper.InitHelper
 import rkrk.reservation.helper.SpringTestContainerTest
 import rkrk.reservation.warehouse.reservation.adapter.output.ReservationJpaRepository
 import rkrk.reservation.warehouse.reservation.application.port.input.ManageReservationUseCase
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.CreatePendingReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestCreatePendingReservationDto
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaRepository
 import java.time.LocalDateTime
@@ -127,8 +127,8 @@ class CreateReservationLockTest(
         memberName: String,
         wareHouseName: String,
         reservationTime: ReservationTime,
-    ): CreatePendingReservationDto =
-        CreatePendingReservationDto(
+    ): RequestCreatePendingReservationDto =
+        RequestCreatePendingReservationDto(
             memberName,
             wareHouseName,
             reservationTime.startDateTime,

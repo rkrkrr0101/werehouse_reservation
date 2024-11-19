@@ -1,8 +1,8 @@
 package rkrk.reservation.warehouse.reservation.application.port.input
 
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.RequestReservationByMemberDto
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.ResultMemberReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestFindReservationByMemberDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.response.ResponseFindMemberReservationDto
 
 interface MemberReservationQuery {
-    fun findMemberReservation(dto: RequestReservationByMemberDto): List<ResultMemberReservationDto>
+    fun findMemberReservation(dto: RequestFindReservationByMemberDto): List<ResponseFindMemberReservationDto>
 }

@@ -1,8 +1,8 @@
-package rkrk.reservation.warehouse.reservation.application.port.input.dto
+package rkrk.reservation.warehouse.reservation.application.port.input.dto.request
 
 import java.time.LocalDateTime
 
-data class UpdateRefundReservationDto(
+data class RequestUpdateRefundReservationDto(
     val memberName: String,
     val warehouseName: String,
     val startDateTime: LocalDateTime,

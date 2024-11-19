@@ -28,6 +28,7 @@ class FindReservationByMemberTest(
     @DisplayName("멤버의 예약기록을 조회할수있다")
     fun findReservationByMember() {
         memberInit(wareHouseJpaRepository)
+
         val dtos = findReservationPort.findMember(initHelper.getMemberName())
 
         Assertions.assertThat(dtos).hasSize(3)

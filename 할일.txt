@@ -50,27 +50,15 @@ ManageReservationService완성//완
     warehouse
         name
 updateReservationAdapter findWarehouseAdapter 테스트 //완
-ManageReservationService테스트//여기서 비관적락 동작테스트 https://markme-inur.tistory.com/145
-ManageReservationService 나머지 테스트
-MemberReservationService 작성
-MemberReservationService 테스트
+ManageReservationService테스트//여기서 비관적락 동작테스트 https://markme-inur.tistory.com/145//완
+ManageReservationService 나머지 테스트//완
+MemberReservationService 작성//완
+MemberReservationService 테스트//완
 WarehouseTotalReservationService 작성
 WarehouseTotalReservationService 테스트
 컨트롤러 작성
 
-비관적락 테스트 코루틴으로 변경
-테스트 수 늘리기
-    락걸고 범위밖에(락이안걸린곳)에 추가하기
-    충돌체크
-
-
-
-1번스레드 비관적락 켜짐
-2번스레드 비관적락 대기
-1번스레드 삽입
-1번스레드
-
-
+컨트롤러 작성 후 findMemberReservation시 n+1터지는지 체크(대충 200개쯤넣어서)
 
 스키마 추가
     창고

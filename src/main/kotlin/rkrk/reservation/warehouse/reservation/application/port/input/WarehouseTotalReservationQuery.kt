@@ -1,7 +1,8 @@
 package rkrk.reservation.warehouse.reservation.application.port.input
 
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.RequestTotalReservationByWarehouseDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestFindTotalReservationByWarehouseDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.response.ResponseFindTotalReservationByWareHouseDto
 
 interface WarehouseTotalReservationQuery {
-    fun findWarehouseTotalReservation(dto: RequestTotalReservationByWarehouseDto)
+    fun findWarehouseTotalReservation(dto: RequestFindTotalReservationByWarehouseDto): List<ResponseFindTotalReservationByWareHouseDto>
 }

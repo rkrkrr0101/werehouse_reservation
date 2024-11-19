@@ -3,10 +3,10 @@ package rkrk.reservation.warehouse.reservation.application.service
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import rkrk.reservation.warehouse.reservation.application.port.input.ManageReservationUseCase
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.CreatePendingReservationDto
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateCancelReservationDto
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateConfirmReservationDto
-import rkrk.reservation.warehouse.reservation.application.port.input.dto.UpdateRefundReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestCreatePendingReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateCancelReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateConfirmReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateRefundReservationDto
 import rkrk.reservation.warehouse.reservation.application.port.output.FindReservationPort
 import rkrk.reservation.warehouse.reservation.application.port.output.UpdateReservationPort
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
@@ -25,7 +25,7 @@ class ManageReservationService(
     private val updateReservationPort: UpdateReservationPort,
 ) : ManageReservationUseCase {
     @Transactional
-    override fun createPendingReservation(dto: CreatePendingReservationDto) {
+    override fun createPendingReservation(dto: RequestCreatePendingReservationDto) {
         val reservationTime = ReservationTime(dto.startDateTime, dto.endDateTime)
         val wareHouse =
             findWareHousePort.findAndLockWarehouseByReservationTime(
@@ -42,7 +42,7 @@ class ManageReservationService(
     }
 
     @Transactional
-    override fun updateConfirmReservation(dto: UpdateConfirmReservationDto) {
+    override fun updateConfirmReservation(dto: RequestUpdateConfirmReservationDto) {
         val dtoReservationTime = ReservationTime(dto.startDateTime, dto.endDateTime)
         val reservation =
             findReservationPort.find(dto.warehouseName, dto.memberName, dtoReservationTime)
@@ -56,7 +56,7 @@ class ManageReservationService(
     }
 
     @Transactional
-    override fun updateCancelReservation(dto: UpdateCancelReservationDto) {
+    override fun updateCancelReservation(dto: RequestUpdateCancelReservationDto) {
         val dtoReservationTime = ReservationTime(dto.startDateTime, dto.endDateTime)
         val reservation =
             findReservationPort.find(dto.warehouseName, dto.memberName, dtoReservationTime)
@@ -68,7 +68,7 @@ class ManageReservationService(
     }
 
     @Transactional
-    override fun updateRefundReservation(dto: UpdateRefundReservationDto) {
+    override fun updateRefundReservation(dto: RequestUpdateRefundReservationDto) {
         // 예약id와 멤버확인하고 환불완료되고나서 업데이트
         // 여기서 실제로 결제들어가면 외부연동결과에따라 보상트랜잭션필요할듯
         val dtoReservationTime = ReservationTime(dto.startDateTime, dto.endDateTime)
