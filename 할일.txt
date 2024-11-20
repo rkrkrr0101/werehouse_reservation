@@ -56,8 +56,20 @@ MemberReservationService 작성//완
 MemberReservationService 테스트//완
 WarehouseTotalReservationService 작성//완
 WarehouseTotalReservationService 테스트//완
-컨트롤러 작성
-예외핸들러작성
+컨트롤러 작성//완
+    해당창고 전체예약시간 반환
+    해당멤버 전체예약시간 반환
+    창고 예약 추가(pending)
+    창고 예약 캔슬 업데이트
+    창고 예약 확정 업데이트
+    창고 예약 환불 업데이트
+예외핸들러작성//완
+    IllegalDomainException
+    NotFoundEntityException
+    OverlapException
+컨트롤러 테스트
+
+
 
 컨트롤러 작성 후 findMemberReservation시 n+1터지는지 체크(대충 200개쯤넣어서)
 

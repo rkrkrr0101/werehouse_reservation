@@ -3,7 +3,7 @@ package rkrk.reservation.warehouse.reservation.adapter.output
 import org.springframework.stereotype.Repository
 import rkrk.reservation.warehouse.reservation.adapter.output.entity.ReservationJpaEntity
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
-import rkrk.reservation.warehouse.share.exception.NotFoundEntityException
+import rkrk.reservation.warehouse.share.exception.exception.NotFoundEntityException
 
 @Repository
 class ReservationRepository(

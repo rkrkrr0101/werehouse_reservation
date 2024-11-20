@@ -1,7 +1,7 @@
 package rkrk.reservation.warehouse.warehouse.adapter.output
 
 import org.springframework.stereotype.Repository
-import rkrk.reservation.warehouse.share.exception.NotFoundEntityException
+import rkrk.reservation.warehouse.share.exception.exception.NotFoundEntityException
 import rkrk.reservation.warehouse.warehouse.adapter.output.entity.WareHouseJpaEntity
 
 @Repository

@@ -12,7 +12,7 @@ import rkrk.reservation.warehouse.reservation.application.port.output.UpdateRese
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import rkrk.reservation.warehouse.reservation.domain.TimeOverlapStatus
-import rkrk.reservation.warehouse.share.exception.OverlapException
+import rkrk.reservation.warehouse.share.exception.exception.OverlapException
 import rkrk.reservation.warehouse.warehouse.application.port.output.FindWareHousePort
 import rkrk.reservation.warehouse.warehouse.application.port.output.UpdateWareHousePort
 

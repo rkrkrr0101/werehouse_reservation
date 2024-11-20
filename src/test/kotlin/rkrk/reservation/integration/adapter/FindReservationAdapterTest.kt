@@ -9,7 +9,7 @@ import rkrk.reservation.helper.SpringTestContainerTestWithTransactional
 import rkrk.reservation.warehouse.reservation.adapter.output.FindReservationAdapter
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
-import rkrk.reservation.warehouse.share.exception.NotFoundEntityException
+import rkrk.reservation.warehouse.share.exception.exception.NotFoundEntityException
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaRepository
 import java.time.LocalDateTime
 

@@ -7,7 +7,7 @@ import rkrk.reservation.warehouse.reservation.domain.Reservation
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import rkrk.reservation.warehouse.reservation.domain.TimeLine
-import rkrk.reservation.warehouse.share.exception.OverlapException
+import rkrk.reservation.warehouse.share.exception.exception.OverlapException
 import java.math.BigDecimal
 import java.time.LocalDateTime
 

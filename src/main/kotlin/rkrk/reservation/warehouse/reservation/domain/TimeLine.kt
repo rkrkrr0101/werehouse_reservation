@@ -1,7 +1,7 @@
 package rkrk.reservation.warehouse.reservation.domain
 
-import rkrk.reservation.warehouse.share.exception.OverlapException
-import rkrk.reservation.warehouse.share.exception.checkCustomException
+import rkrk.reservation.warehouse.share.checkCustomException
+import rkrk.reservation.warehouse.share.exception.exception.OverlapException
 
 // 한 창고에 대한 총 예약시간
 // 생성자로 받은 시간을 가지고 타임슬롯리스트를 생성할수있음

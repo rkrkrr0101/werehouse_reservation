@@ -14,7 +14,7 @@ import rkrk.reservation.warehouse.reservation.adapter.output.entity.ReservationJ
 import rkrk.reservation.warehouse.reservation.adapter.output.entity.toTimeLine
 import rkrk.reservation.warehouse.reservation.domain.Reservation
 import rkrk.reservation.warehouse.share.BaseEntity
-import rkrk.reservation.warehouse.share.exception.IllegalDomainException
+import rkrk.reservation.warehouse.share.exception.exception.IllegalDomainException
 import rkrk.reservation.warehouse.warehouse.domain.WareHouse
 
 @Entity
