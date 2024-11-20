@@ -69,12 +69,11 @@ class ManageReservationService(
 
     @Transactional
     override fun updateRefundReservation(dto: RequestUpdateRefundReservationDto) {
-        // 예약id와 멤버확인하고 환불완료되고나서 업데이트
+        // 예약 id 와 멤버확인하고 환불완료되고나서 업데이트
         // 여기서 실제로 결제들어가면 외부연동결과에따라 보상트랜잭션필요할듯
         val dtoReservationTime = ReservationTime(dto.startDateTime, dto.endDateTime)
         val reservation =
             findReservationPort.find(dto.warehouseName, dto.memberName, dtoReservationTime)
-                ?: throw RuntimeException() // 커스텀예외변환
         val wareHouse = findWareHousePort.findWarehouseByName(dto.warehouseName)
         // 환불로직
         // 환불로직끝
