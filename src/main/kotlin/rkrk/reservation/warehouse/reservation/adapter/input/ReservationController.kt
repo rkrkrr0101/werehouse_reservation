@@ -28,16 +28,14 @@ class ReservationController(
 ) {
     @GetMapping("/warehouse")
     fun findTotalReservationByWareHouse(
-        @RequestBody dto: RequestFindTotalReservationByWarehouseDto,
+        dto: RequestFindTotalReservationByWarehouseDto,
     ): Result<List<ResponseFindTotalReservationByWareHouseDto>> {
         val reservationDtos = warehouseTotalReservationQuery.findWarehouseTotalReservation(dto)
         return Result(reservationDtos)
     }
 
     @GetMapping("/member")
-    fun findTotalReservationByMember(
-        @RequestBody dto: RequestFindReservationByMemberDto,
-    ): Result<List<ResponseFindMemberReservationDto>> {
+    fun findTotalReservationByMember(dto: RequestFindReservationByMemberDto): Result<List<ResponseFindMemberReservationDto>> {
         val reservationDtos = memberReservationQuery.findMemberReservation(dto)
         return Result(reservationDtos)
     }
@@ -45,28 +43,28 @@ class ReservationController(
     @PostMapping
     fun createReservation(
         @RequestBody dto: RequestCreatePendingReservationDto,
-    )  {
+    ) {
         manageReservationUseCase.createPendingReservation(dto)
     }
 
     @PatchMapping("/cancel")
     fun cancelReservation(
         @RequestBody dto: RequestUpdateCancelReservationDto,
-    )  {
+    ) {
         manageReservationUseCase.updateCancelReservation(dto)
     }
 
     @PatchMapping("/confirm")
     fun confirmReservation(
         @RequestBody dto: RequestUpdateConfirmReservationDto,
-    )  {
+    ) {
         manageReservationUseCase.updateConfirmReservation(dto)
     }
 
     @PatchMapping("/refund")
     fun refundReservation(
         @RequestBody dto: RequestUpdateRefundReservationDto,
-    )  {
+    ) {
         manageReservationUseCase.updateRefundReservation(dto)
     }
 }
