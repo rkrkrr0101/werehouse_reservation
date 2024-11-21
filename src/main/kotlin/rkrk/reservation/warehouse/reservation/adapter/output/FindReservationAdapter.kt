@@ -17,7 +17,7 @@ class FindReservationAdapter(
         memberName: String,
         reservationTime: ReservationTime,
     ): Reservation {
-        val wareHouseEntity = wareHouseRepository.findByName(wareHouseName)
+        val wareHouseEntity = wareHouseRepository.findByNameAndValidReservation(wareHouseName)
         val reservationEntity = reservationRepository.find(wareHouseEntity.id, memberName, reservationTime)
 
         return reservationEntity.toDomain()

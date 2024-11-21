@@ -9,7 +9,7 @@ class UpdateWareHouseAdapter(
     private val repository: WareHouseRepository,
 ) : UpdateWareHousePort {
     override fun update(wareHouse: WareHouse) {
-        val wareHouseEntity = repository.findByName(wareHouse.retrieveName())
+        val wareHouseEntity = repository.findByNameAndValidReservation(wareHouse.retrieveName())
         wareHouseEntity.update(wareHouse)
     }
 }

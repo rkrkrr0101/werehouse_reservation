@@ -17,11 +17,11 @@ class FindWareHouseAdapter(
     ): WareHouse {
         reservationRepository
             .findAndLockWarehouseByReservationTime(warehouseName, reservationTime)
-        return wareHouseRepository.findByName(warehouseName).toDomain()
+        return wareHouseRepository.findByNameAndValidReservation(warehouseName).toDomain()
     }
 
     override fun findWarehouseByName(warehouseName: String): WareHouse =
         wareHouseRepository
-            .findByName(warehouseName)
+            .findByNameAndValidReservation(warehouseName)
             .toDomain()
 }

@@ -67,7 +67,12 @@ WarehouseTotalReservationService 테스트//완
     IllegalDomainException
     NotFoundEntityException
     OverlapException
-컨트롤러 테스트
+컨트롤러 테스트//완
+
+pending와 confirm만 조회하게 쿼리변경//락은 완,그냥 조회쿼리도 분리하고,
+FindWareHouseAdapter.findAndLockWarehouseByReservationTime  그걸 가져와야할듯
+이후 저거만 검색하는지 확인하는 테스트 추가
+배치작성
 
 
 
