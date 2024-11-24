@@ -11,6 +11,7 @@ import rkrk.reservation.helper.SpringTestContainerTest
 import rkrk.reservation.warehouse.reservation.adapter.output.ReservationJpaRepository
 import rkrk.reservation.warehouse.reservation.application.port.input.ManageReservationUseCase
 import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestCreatePendingReservationDto
+import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateCancelReservationDto
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaRepository
 import java.time.LocalDateTime
@@ -121,6 +122,52 @@ class CreateReservationLockTest(
 
         val reservations = reservationJpaRepository.findAll()
         Assertions.assertThat(reservations).hasSize(5)
+    }
+
+    @Test
+    @DisplayName("겹치는 시간이 있더라도 해당 예약이 환불이나 취소상태면 추가할수있다")
+    fun createReservationCancelReservation() {
+        initHelper.basicInit(wareHouseJpaRepository)
+        reservationJpaRepository.findAll().forEach {
+            println(it.state)
+        }
+        println(" aaa ")
+        val reservationTime1 =
+            ReservationTime(
+                LocalDateTime.of(2024, 10, 24, 10, 30),
+                LocalDateTime.of(2024, 10, 24, 12, 30),
+            )
+
+        manageReservationUseCase.updateCancelReservation(
+            RequestUpdateCancelReservationDto(
+                initHelper.getMemberName(),
+                initHelper.getWareHouseName(),
+                reservationTime1.startDateTime,
+                reservationTime1.endDateTime,
+            ),
+        )
+        reservationJpaRepository.findAll().forEach {
+            println(it.state)
+        }
+        println(" bbb ")
+        manageReservationUseCase.createPendingReservation(
+            createDto(
+                initHelper.getMemberName(),
+                initHelper.getWareHouseName(),
+                reservationTime1,
+            ),
+        )
+        reservationJpaRepository.findAll().forEach {
+            println(it.state)
+        }
+        println(" ccc ")
+
+        val reservations = reservationJpaRepository.findAll()
+        reservations.forEach {
+            println(it.state)
+        }
+        println(" ddd ")
+        Assertions.assertThat(reservations).hasSize(3)
     }
 
     private fun createDto(

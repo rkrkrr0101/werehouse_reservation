@@ -69,11 +69,20 @@ WarehouseTotalReservationService 테스트//완
     OverlapException
 컨트롤러 테스트//완
 
-pending와 confirm만 조회하게 쿼리변경//락은 완,그냥 조회쿼리도 분리하고,
-FindWareHouseAdapter.findAndLockWarehouseByReservationTime  그걸 가져와야할듯
-이후 저거만 검색하는지 확인하는 테스트 추가
+pending와 confirm만 조회하게 쿼리변경//완
 배치작성
 
+reservationEntity의 유니크제거(상태가 cancel인거도 안겹치는문제)
+warehouseJpaRepository의 검색시,영속성컨텍스트에 남아있는 id가 같은 데이터가 있으면 섞이는현상->
+    1.dto사용으로 해결?
+    2.em.clear()//근데 이거쓰긴좀,
+    3.그냥 다 던져버리고,어플리케이션단에서 해결//이거 선택,다르게 주는경우 업데이트가 귀찮아질듯
+
+entity to timeline생성시에 pending과 confirm말고는 다 거르고 생성하게 변경//완
+업데이트시에는 덮어쓰기가 아닌 추가만 하게 하고//완
+테스트추가(타임라인생성,ㅊ)
+    타임라인생성//완
+    같은값이라도 상태가 다르면 중복가능하게 추가//완
 
 
 컨트롤러 작성 후 findMemberReservation시 n+1터지는지 체크(대충 200개쯤넣어서)

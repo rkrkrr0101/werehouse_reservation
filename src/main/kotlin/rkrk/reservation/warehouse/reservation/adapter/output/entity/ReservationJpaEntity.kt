@@ -29,7 +29,6 @@ import java.time.LocalDateTime
         Index(
             name = "idx_warehouse_reservation_timeline",
             columnList = "warehouse_id,startDateTime,endDateTime",
-            unique = true,
         ),
     ],
 )
@@ -68,15 +67,9 @@ class ReservationJpaEntity(
 fun List<ReservationJpaEntity>.toTimeLine(): TimeLine {
     val timeLine = TimeLine()
     for (entity in this) {
-        timeLine.addReservation(entity.toDomain())
+        if (entity.state in setOf(ReservationStatus.PENDING, ReservationStatus.CONFIRMED)) {
+            timeLine.addReservation(entity.toDomain())
+        }
     }
     return timeLine
-}
-
-fun List<ReservationJpaEntity>.toReservationList(): List<Reservation> {
-    val reservationList = mutableListOf<Reservation>()
-    for (entity in this) {
-        reservationList.add(entity.toDomain())
-    }
-    return reservationList
 }

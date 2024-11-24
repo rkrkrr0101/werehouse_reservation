@@ -26,6 +26,9 @@ class FindWareHouseAdapterTest(
         val wareHouse = findWareHouseAdapter.findWarehouseByName(initHelper.getWareHouseName())
 
         Assertions.assertThat(wareHouse.retrieveName()).isEqualTo(initHelper.getWareHouseName())
+        Assertions
+            .assertThat(wareHouse.retrieveTotalReservations().reservations.size)
+            .isEqualTo(2)
     }
 
     @Test

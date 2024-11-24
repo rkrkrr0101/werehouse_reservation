@@ -15,7 +15,7 @@ class UpdateReservationAdapter(
         wareHouse: WareHouse,
         reservation: Reservation,
     ) {
-        val wareHouseJpaEntity = wareHouseRepository.findByNameAndValidReservation(wareHouse.retrieveName())
+        val wareHouseJpaEntity = wareHouseRepository.findByName(wareHouse.retrieveName())
         val reservationJpaEntity =
             reservationRepository.find(
                 wareHouseJpaEntity.id,

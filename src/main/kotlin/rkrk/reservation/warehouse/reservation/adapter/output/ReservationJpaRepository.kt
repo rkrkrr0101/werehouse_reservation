@@ -15,7 +15,8 @@ interface ReservationJpaRepository : JpaRepository<ReservationJpaEntity, Long> {
             " where r.wareHouse.id=:wareHouseId " +
             " and r.memberName=:memberName " +
             " and r.startDateTime=:startDateTime " +
-            " and r.endDateTime=:endDateTime ",
+            " and r.endDateTime=:endDateTime " +
+            " and (r.state= 'PENDING' or r.state= 'CONFIRMED')  ",
     )
     fun find(
         wareHouseId: Long,

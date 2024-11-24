@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import rkrk.reservation.helper.InitHelper
 import rkrk.reservation.helper.SpringTestContainerTestWithTransactional
+import rkrk.reservation.warehouse.reservation.adapter.output.ReservationJpaRepository
 import rkrk.reservation.warehouse.reservation.application.port.input.ManageReservationUseCase
 import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateCancelReservationDto
 import rkrk.reservation.warehouse.reservation.application.port.input.dto.request.RequestUpdateConfirmReservationDto
@@ -13,6 +14,7 @@ import rkrk.reservation.warehouse.reservation.application.port.input.dto.request
 import rkrk.reservation.warehouse.reservation.application.port.output.FindReservationPort
 import rkrk.reservation.warehouse.reservation.domain.ReservationStatus
 import rkrk.reservation.warehouse.reservation.domain.ReservationTime
+import rkrk.reservation.warehouse.share.exception.exception.NotFoundEntityException
 import rkrk.reservation.warehouse.warehouse.adapter.output.WareHouseJpaRepository
 import java.time.LocalDateTime
 
@@ -20,6 +22,7 @@ import java.time.LocalDateTime
 class UpdateReservationTest(
     @Autowired val manageReservationUseCase: ManageReservationUseCase,
     @Autowired val wareHouseJpaRepository: WareHouseJpaRepository,
+    @Autowired val reservationJpaRepository: ReservationJpaRepository,
     @Autowired val findReservationPort: FindReservationPort,
 ) {
     private val initHelper = InitHelper()
@@ -39,8 +42,11 @@ class UpdateReservationTest(
 
         manageReservationUseCase.updateCancelReservation(dto)
 
-        val findReservation = findReservationPort.find(dto.warehouseName, dto.memberName, reservationTime)
-        Assertions.assertThat(findReservation.state).isEqualTo(ReservationStatus.CANCELLED)
+        Assertions
+            .assertThatThrownBy { findReservationPort.find(dto.warehouseName, dto.memberName, reservationTime) }
+            .isInstanceOf(NotFoundEntityException::class.java)
+        val reservations = reservationJpaRepository.findAll()
+        Assertions.assertThat(reservations.size).isEqualTo(2)
     }
 
     @Test
@@ -58,8 +64,11 @@ class UpdateReservationTest(
 
         manageReservationUseCase.updateRefundReservation(dto)
 
-        val findReservation = findReservationPort.find(dto.warehouseName, dto.memberName, reservationTime)
-        Assertions.assertThat(findReservation.state).isEqualTo(ReservationStatus.REFUNDED)
+        Assertions
+            .assertThatThrownBy { findReservationPort.find(dto.warehouseName, dto.memberName, reservationTime) }
+            .isInstanceOf(NotFoundEntityException::class.java)
+        val reservations = reservationJpaRepository.findAll()
+        Assertions.assertThat(reservations.size).isEqualTo(2)
     }
 
     @Test
